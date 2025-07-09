@@ -1,20 +1,15 @@
 import { redirect } from 'next/navigation';
 
 import { createClient } from '@/lib/supabase/server';
-import { LogoutButton } from '@/components/logout-button';
+import DashboardPage from '@/components/pages/dashboard-page';
 
 export default async function dashboard() {
   const supabase = await createClient();
 
   const { data, error } = await supabase.auth.getUser();
   if (error || !data?.user) {
-    redirect('/admin');
+    redirect('/admin/login');
   }
 
-  return (
-    <div>
-      DASHBOARD
-      <LogoutButton />
-    </div>
-  );
+  return <DashboardPage />;
 }
