@@ -18,6 +18,7 @@ import ListCategories from '../list-categories';
 import { ThemeToggle } from '../theme-toggle';
 import { LogoutButton } from '../logout-button';
 import { DotPattern } from '../magicui/dot-pattern';
+import { Category } from '@/api/categories';
 
 const Libre = Libre_Baskerville({
   variable: '--font-sans',
@@ -27,6 +28,7 @@ const Libre = Libre_Baskerville({
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState('categories');
+  const [categories, setCategories] = useState<Category[]>([]);
 
   return (
     <div className='container mx-auto'>
@@ -75,10 +77,13 @@ export default function DashboardPage() {
                     View, add and delete categories
                   </CardDescription>
                 </div>
-                <AddCategory />
+                <AddCategory setCategories={setCategories} />
               </CardHeader>
               <CardContent>
-                <ListCategories />
+                <ListCategories
+                  categories={categories}
+                  setCategories={setCategories}
+                />
               </CardContent>
             </Card>
           </TabsContent>

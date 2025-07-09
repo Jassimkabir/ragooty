@@ -24,8 +24,12 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
-const ListCategories = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
+type ListCategoriesProps = {
+  categories: Category[];
+  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
+};
+
+const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

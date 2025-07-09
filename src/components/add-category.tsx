@@ -1,5 +1,6 @@
 'use client';
 
+import { addCategory, Category, getAllCategories } from '@/api/categories';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -13,14 +14,16 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Plus } from 'lucide-react';
-import { Switch } from './ui/switch';
-import { createClient } from '@/lib/supabase/client';
-import { useState } from 'react';
-import { addCategory } from '@/api/categories';
 import { toast } from '@/hooks/use-toast';
+import { Plus } from 'lucide-react';
+import { useState } from 'react';
+import { Switch } from './ui/switch';
 
-export function AddCategory() {
+type AddCategoryProps = {
+  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
+};
+
+export function AddCategory({ setCategories }: AddCategoryProps) {
   const [name, setName] = useState('');
   const [isActive, setIsActive] = useState(false);
   const [open, setOpen] = useState(false);
@@ -35,7 +38,10 @@ export function AddCategory() {
       });
       setName('');
       setIsActive(false);
-      setOpen(false); // Close dialog on success
+      getAllCategories().then((data) => {
+        setCategories(data);
+      });
+      setOpen(false);
     } catch (error) {
       console.log(error);
     }
