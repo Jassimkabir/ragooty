@@ -93,7 +93,7 @@ const ListCategories = () => {
                 <span className='font-medium'>{category.name}</span>
               </div>
               <div className='flex gap-2'>
-                <Button size='sm' variant='ghost'>
+                <Button size='sm' variant='ghost' disabled>
                   <Edit className='h-4 w-4' />
                 </Button>
                 <AlertDialog>

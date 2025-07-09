@@ -12,8 +12,16 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { createClient } from '@/lib/supabase/client';
 import { cn } from '@/lib/utils';
-import { redirect, useRouter } from 'next/navigation';
+import { Libre_Baskerville } from 'next/font/google';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from '@/hooks/use-toast';
+
+const Libre = Libre_Baskerville({
+  variable: '--font-sans',
+  subsets: ['latin'],
+  weight: ['400', '700'],
+});
 
 export function LoginForm({
   className,
@@ -37,18 +45,37 @@ export function LoginForm({
         password,
       });
       if (error) throw error;
+      toast({
+        title: 'Login Successful',
+        description: 'You have been logged in successfully.',
+      });
       router.push('/admin/dashboard');
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : 'An error occurred');
+      const message =
+        error instanceof Error ? error.message : 'An error occurred';
+      setError(message);
+      toast({
+        title: 'Login Failed',
+        description: message,
+        variant: 'destructive',
+      });
     } finally {
       setIsLoading(false);
     }
   };
+
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          <CardTitle
+            className={cn(
+              Libre.className,
+              'text-2xl sm:text-3xl md:text-4xl font-bold'
+            )}
+          >
+            Ragooty Sasidharan
+          </CardTitle>
           <CardDescription>
             Enter your email below to login to your account
           </CardDescription>
@@ -80,7 +107,6 @@ export function LoginForm({
                 />
               </div>
               <div className='flex flex-col gap-3'>
-                {error && <p className='text-sm text-red-500'>{error}</p>}
                 <Button type='submit' className='w-full' disabled={isLoading}>
                   {isLoading ? 'Logging in...' : 'Login'}
                 </Button>
