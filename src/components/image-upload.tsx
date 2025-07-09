@@ -22,7 +22,7 @@ export function ImageUpload() {
         <DialogTrigger asChild>
           <Button variant='outline'>
             <Upload className='w-4 h-4' />
-            Upload Image
+            <span className='hidden sm:block'>Upload Image</span>
           </Button>
         </DialogTrigger>
         <DialogContent className='sm:max-w-[425px]'>

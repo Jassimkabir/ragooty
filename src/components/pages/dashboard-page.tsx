@@ -16,6 +16,8 @@ import { AddCategory } from '../add-category';
 import { ImageUpload } from '../image-upload';
 import ListCategories from '../list-categories';
 import { ThemeToggle } from '../theme-toggle';
+import { LogoutButton } from '../logout-button';
+import { DotPattern } from '../magicui/dot-pattern';
 
 const Libre = Libre_Baskerville({
   variable: '--font-sans',
@@ -40,7 +42,10 @@ export default function DashboardPage() {
               Welcome, <br />
               Ragooty Sasidharan
             </p>
-            <ThemeToggle />
+            <div className='flex gap-2 items-start'>
+              <ThemeToggle />
+              <LogoutButton />
+            </div>
           </div>
           <p className='mt-2 text-base text-muted-foreground max-w-md mx-auto md:mx-0'>
             Manage your categories and images with ease.
@@ -63,7 +68,7 @@ export default function DashboardPage() {
           </TabsList>
           <TabsContent value='categories'>
             <Card>
-              <CardHeader className='flex flex-col md:flex-row justify-between md:items-center gap-2'>
+              <CardHeader className='flex justify-between md:items-center gap-2'>
                 <div>
                   <CardTitle>Categories</CardTitle>
                   <CardDescription>
@@ -79,7 +84,7 @@ export default function DashboardPage() {
           </TabsContent>
           <TabsContent value='images'>
             <Card>
-              <CardHeader className='flex flex-col md:flex-row justify-between md:items-center gap-2'>
+              <CardHeader className='flex justify-between md:items-center gap-2'>
                 <div>
                   <CardTitle>Images</CardTitle>
                   <CardDescription>View, add and delete images</CardDescription>
