@@ -1,12 +1,28 @@
 'use client';
 
-import { Category, getAllCategories } from '@/api/categories';
+import {
+  Category,
+  deleteCategoryById,
+  getAllCategories,
+} from '@/api/categories';
 import { cn } from '@/lib/utils';
 import { Edit, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Skeleton } from './ui/skeleton';
+import { toast } from '@/hooks/use-toast';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 
 const ListCategories = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -18,6 +34,23 @@ const ListCategories = () => {
       setLoading(false);
     });
   }, []);
+
+  const handleDeleteCategory = async (categoryId: string) => {
+    try {
+      await deleteCategoryById(categoryId);
+      await getAllCategories().then((data) => {
+        setCategories(data);
+        setLoading(false);
+      });
+      toast({
+        title: 'Category Deleted',
+        description: 'The category has been removed successfully.',
+        variant: 'destructive',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (loading) {
     return (
@@ -63,13 +96,30 @@ const ListCategories = () => {
                 <Button size='sm' variant='ghost'>
                   <Edit className='h-4 w-4' />
                 </Button>
-                <Button
-                  size='sm'
-                  variant='ghost'
-                  // onClick={() => handleDeleteCategory(category.id)}
-                >
-                  <Trash2 className='h-4 w-4' />
-                </Button>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button size='sm' variant='ghost'>
+                      <Trash2 className='h-4 w-4' />
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Delete Category?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action cannot be undone. This will permanently
+                        delete this category and remove it from your list.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={() => handleDeleteCategory(category.id)}
+                      >
+                        Continue
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </div>
             </div>
           </CardContent>

@@ -33,3 +33,17 @@ export async function getAllCategories() {
 
   return data;
 }
+
+export async function deleteCategoryById(categoryId: string) {
+  const { error } = await supabase
+    .from('categories')
+    .delete()
+    .eq('id', categoryId);
+
+  if (error) {
+    console.error('Error deleting category:', error.message);
+    throw error;
+  }
+
+  return true;
+}
