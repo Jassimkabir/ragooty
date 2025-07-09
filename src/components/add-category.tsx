@@ -74,7 +74,7 @@ export function AddCategory({ setCategories }: AddCategoryProps) {
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
-            <div className='grid gap-3'>
+            <div className='flex gap-3 items-center justify-between'>
               <Label htmlFor='active'>Active</Label>
               <Switch
                 id='active'
