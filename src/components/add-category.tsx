@@ -30,6 +30,16 @@ export function AddCategory({ setCategories }: AddCategoryProps) {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    if (!name.trim()) {
+      toast({
+        title: 'Category name required',
+        description: 'Please enter a category name before adding.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     try {
       await addCategory(name, isActive);
       toast({

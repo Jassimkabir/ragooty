@@ -1,12 +1,8 @@
 import { generateBlurhash, isValidImageFile } from '@/lib/image-utils';
 import { createClient } from '@/lib/supabase/client';
+import { Category } from './categories';
 
 const supabase = createClient();
-
-export type Category = {
-  id: string;
-  name: string;
-};
 
 export type ImageCategory = {
   category: Category;
@@ -76,7 +72,8 @@ export async function listImagesWithCategories() {
         image_categories (
           category:category_id (
             id,
-            name
+            name,
+            is_active
           )
         )
       `);

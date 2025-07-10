@@ -57,30 +57,30 @@ const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className='grid gap-4'>
-        {[...Array(4)].map((_, idx) => (
-          <BlurFade key={idx} delay={0.25 + idx * 0.05} inView>
-            <Card key={idx} className='py-0 w-full'>
-              <CardContent className='p-4'>
-                <div className='flex items-center justify-between'>
-                  <div className='flex items-center gap-3'>
-                    <Skeleton className='w-4 h-4 rounded-full' />
-                    <Skeleton className='h-4 w-24' />
-                  </div>
-                  <div className='flex gap-2'>
-                    <Skeleton className='h-8 w-8 rounded-md' />
-                    <Skeleton className='h-8 w-8 rounded-md' />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </BlurFade>
-        ))}
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className='grid gap-4'>
+  //       {[...Array(4)].map((_, idx) => (
+  //         <BlurFade key={idx} delay={0.25 + idx * 0.05} inView>
+  //           <Card key={idx} className='py-0 w-full'>
+  //             <CardContent className='p-4'>
+  //               <div className='flex items-center justify-between'>
+  //                 <div className='flex items-center gap-3'>
+  //                   <Skeleton className='w-4 h-4 rounded-full' />
+  //                   <Skeleton className='h-4 w-24' />
+  //                 </div>
+  //                 <div className='flex gap-2'>
+  //                   <Skeleton className='h-8 w-8 rounded-md' />
+  //                   <Skeleton className='h-8 w-8 rounded-md' />
+  //                 </div>
+  //               </div>
+  //             </CardContent>
+  //           </Card>
+  //         </BlurFade>
+  //       ))}
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className='grid gap-4'>

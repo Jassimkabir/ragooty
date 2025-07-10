@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
-import { AlignLeft, Image } from 'lucide-react';
+import { AlignLeft, Image as ImageIcon } from 'lucide-react';
 import { Libre_Baskerville } from 'next/font/google';
 import { useState } from 'react';
 import { AddCategory } from '../add-category';
@@ -19,6 +19,7 @@ import ListCategories from '../list-categories';
 import ListImages from '../list-images';
 import { LogoutButton } from '../logout-button';
 import { ThemeToggle } from '../theme-toggle';
+import { Image } from '@/api/images';
 
 const Libre = Libre_Baskerville({
   variable: '--font-sans',
@@ -29,6 +30,7 @@ const Libre = Libre_Baskerville({
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState('categories');
   const [categories, setCategories] = useState<Category[]>([]);
+  const [images, setImages] = useState<Image[]>([]);
 
   return (
     <div className='container mx-auto'>
@@ -64,7 +66,7 @@ export default function DashboardPage() {
               Categories
             </TabsTrigger>
             <TabsTrigger value='images' className='flex items-center gap-2'>
-              <Image className='h-4 w-4' />
+              <ImageIcon className='h-4 w-4' />
               Images
             </TabsTrigger>
           </TabsList>
@@ -94,10 +96,10 @@ export default function DashboardPage() {
                   <CardTitle>Images</CardTitle>
                   <CardDescription>View, add and delete images</CardDescription>
                 </div>
-                <ImageUpload />
+                <ImageUpload setImages={setImages} />
               </CardHeader>
               <CardContent>
-                <ListImages />
+                <ListImages images={images} setImages={setImages} />
               </CardContent>
             </Card>
           </TabsContent>
