@@ -1,9 +1,10 @@
 'use client';
 
 import { Image, listImagesWithCategories } from '@/api/images';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { BlurFade } from './magicui/blur-fade';
 import { Skeleton } from './ui/skeleton';
+import { Blurhash } from 'react-blurhash';
 
 type ListImagesProps = {
   images: Image[];
@@ -15,7 +16,6 @@ const ListImages = ({ images, setImages }: ListImagesProps) => {
 
   useEffect(() => {
     listImagesWithCategories().then((data) => {
-      console.log('DATA', data);
       const fixedData = data.map((img: any) => ({
         ...img,
         image_categories: img.image_categories.map((ic: any) => ({

@@ -53,3 +53,13 @@ export const isValidImageFile = (file: File): boolean => {
   const maxSize = 8 * 1024 * 1024; // 8MB
   return validTypes.includes(file.type) && file.size <= maxSize;
 };
+
+export const getImageDimensions = (
+  file: File
+): Promise<{ width: number; height: number }> =>
+  new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve({ width: img.width, height: img.height });
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
+  });

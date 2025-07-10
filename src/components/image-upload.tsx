@@ -86,7 +86,6 @@ export function ImageUpload({ setImages }: ImageUploadProps) {
       setPreviewUrl(null);
       setSelected([]);
       listImagesWithCategories().then((data) => {
-        console.log('DATA', data);
         const fixedData = data.map((img: any) => ({
           ...img,
           image_categories: img.image_categories.map((ic: any) => ({

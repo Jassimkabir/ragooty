@@ -1,4 +1,8 @@
-import { generateBlurhash, isValidImageFile } from '@/lib/image-utils';
+import {
+  generateBlurhash,
+  getImageDimensions,
+  isValidImageFile,
+} from '@/lib/image-utils';
 import { createClient } from '@/lib/supabase/client';
 import { Category } from './categories';
 
@@ -12,6 +16,8 @@ export type Image = {
   id: string;
   url: string;
   blurhash: string;
+  width: number;
+  height: number;
   image_categories: ImageCategory[];
 };
 
@@ -20,20 +26,18 @@ export async function uploadImage(file: File, categoryIds: string[]) {
     throw new Error('Invalid file type or file too large');
   }
 
-  // 2. Generate blurhash for UI placeholder
   const blurhash = await generateBlurhash(file);
-
-  // 3. Generate a unique file name
+  const { width, height } = await getImageDimensions(file);
   const fileName = `${Date.now()}-${file.name}`;
 
-  // 4. Upload to Supabase Storage
+  // Upload to Supabase Storage
   const { error: uploadError } = await supabase.storage
     .from('images')
     .upload(fileName, file);
 
   if (uploadError) throw uploadError;
 
-  // 5. Get public URL
+  // Get public URL
   const { data: urlData } = supabase.storage
     .from('images')
     .getPublicUrl(fileName);
@@ -41,16 +45,16 @@ export async function uploadImage(file: File, categoryIds: string[]) {
   const publicUrl = urlData?.publicUrl;
   if (!publicUrl) throw new Error('Failed to get public URL');
 
-  // 6. Insert into `images` table with blurhash
+  // Insert into `images` table with blurhash
   const { data: imageData, error: imageError } = await supabase
     .from('images')
-    .insert({ url: publicUrl, blurhash })
+    .insert({ url: publicUrl, blurhash, width, height })
     .select()
     .single();
 
   if (imageError || !imageData) throw imageError;
 
-  // 7. Link categories
+  // Link categories
   const links = categoryIds.map((catId) => ({
     image_id: imageData.id,
     category_id: catId,
@@ -69,6 +73,9 @@ export async function listImagesWithCategories() {
   const { data, error } = await supabase.from('images').select(`
         id,
         url,
+        blurhash,
+        width,
+        height,
         image_categories (
           category:category_id (
             id,
