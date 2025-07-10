@@ -1,5 +1,6 @@
 'use client';
 
+import { Category } from '@/api/categories';
 import {
   Card,
   CardContent,
@@ -15,10 +16,9 @@ import { useState } from 'react';
 import { AddCategory } from '../add-category';
 import { ImageUpload } from '../image-upload';
 import ListCategories from '../list-categories';
-import { ThemeToggle } from '../theme-toggle';
+import ListImages from '../list-images';
 import { LogoutButton } from '../logout-button';
-import { DotPattern } from '../magicui/dot-pattern';
-import { Category } from '@/api/categories';
+import { ThemeToggle } from '../theme-toggle';
 
 const Libre = Libre_Baskerville({
   variable: '--font-sans',
@@ -71,7 +71,7 @@ export default function DashboardPage() {
           <TabsContent value='categories'>
             <Card>
               <CardHeader className='flex justify-between md:items-center gap-2'>
-                <div>
+                <div className='flex flex-col gap-1'>
                   <CardTitle>Categories</CardTitle>
                   <CardDescription>
                     View, add and delete categories
@@ -90,13 +90,15 @@ export default function DashboardPage() {
           <TabsContent value='images'>
             <Card>
               <CardHeader className='flex justify-between md:items-center gap-2'>
-                <div>
+                <div className='flex flex-col gap-1'>
                   <CardTitle>Images</CardTitle>
                   <CardDescription>View, add and delete images</CardDescription>
                 </div>
                 <ImageUpload />
               </CardHeader>
-              <CardContent>DUMMY</CardContent>
+              <CardContent>
+                <ListImages />
+              </CardContent>
             </Card>
           </TabsContent>
         </Tabs>

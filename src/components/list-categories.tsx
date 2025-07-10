@@ -23,6 +23,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { BlurFade } from './magicui/blur-fade';
 
 type ListCategoriesProps = {
   categories: Category[];
@@ -59,21 +60,23 @@ const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
   if (loading) {
     return (
       <div className='grid gap-4'>
-        {[...Array(2)].map((_, i) => (
-          <Card key={i} className='py-0 w-full'>
-            <CardContent className='p-4'>
-              <div className='flex items-center justify-between'>
-                <div className='flex items-center gap-3'>
-                  <Skeleton className='w-4 h-4 rounded-full' />
-                  <Skeleton className='h-4 w-24' />
+        {[...Array(4)].map((_, idx) => (
+          <BlurFade key={idx} delay={0.25 + idx * 0.05} inView>
+            <Card key={idx} className='py-0 w-full'>
+              <CardContent className='p-4'>
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center gap-3'>
+                    <Skeleton className='w-4 h-4 rounded-full' />
+                    <Skeleton className='h-4 w-24' />
+                  </div>
+                  <div className='flex gap-2'>
+                    <Skeleton className='h-8 w-8 rounded-md' />
+                    <Skeleton className='h-8 w-8 rounded-md' />
+                  </div>
                 </div>
-                <div className='flex gap-2'>
-                  <Skeleton className='h-8 w-8 rounded-md' />
-                  <Skeleton className='h-8 w-8 rounded-md' />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </BlurFade>
         ))}
       </div>
     );
@@ -81,53 +84,55 @@ const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
 
   return (
     <div className='grid gap-4'>
-      {categories.map((category) => (
-        <Card key={category.id} className='py-0 w-full'>
-          <CardContent className='p-4'>
-            <div className='flex items-center justify-between'>
-              <div className='flex items-center gap-3'>
-                <div
-                  className={cn(
-                    category.is_active === true
-                      ? 'bg-green-500 dark:bg-green-600'
-                      : 'bg-red-500 dark:bg-red-600',
-                    'w-4 h-4 rounded-full'
-                  )}
-                />
-                <span className='font-medium'>{category.name}</span>
+      {categories.map((category, idx) => (
+        <BlurFade key={category.id} delay={0.25 + idx * 0.05} inView>
+          <Card key={category.id} className='py-0 w-full'>
+            <CardContent className='p-4'>
+              <div className='flex items-center justify-between'>
+                <div className='flex items-center gap-3'>
+                  <div
+                    className={cn(
+                      category.is_active === true
+                        ? 'bg-green-500 dark:bg-green-600'
+                        : 'bg-red-500 dark:bg-red-600',
+                      'w-4 h-4 rounded-full'
+                    )}
+                  />
+                  <span className='font-medium'>{category.name}</span>
+                </div>
+                <div className='flex gap-2'>
+                  <Button size='sm' variant='ghost' disabled>
+                    <Edit className='h-4 w-4' />
+                  </Button>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button size='sm' variant='ghost'>
+                        <Trash2 className='h-4 w-4' />
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Delete Category?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          This action cannot be undone. This will permanently
+                          delete this category and remove it from your list.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => handleDeleteCategory(category.id)}
+                        >
+                          Continue
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
               </div>
-              <div className='flex gap-2'>
-                <Button size='sm' variant='ghost' disabled>
-                  <Edit className='h-4 w-4' />
-                </Button>
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button size='sm' variant='ghost'>
-                      <Trash2 className='h-4 w-4' />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Delete Category?</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        This action cannot be undone. This will permanently
-                        delete this category and remove it from your list.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction
-                        onClick={() => handleDeleteCategory(category.id)}
-                      >
-                        Continue
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </BlurFade>
       ))}
     </div>
   );
