@@ -3,6 +3,7 @@
 import { Image, listImagesWithCategories } from '@/api/images';
 import { useEffect, useState } from 'react';
 import { BlurFade } from './magicui/blur-fade';
+import { ImageViewer } from './image-viewer';
 
 type ListImagesProps = {
   images: Image[];
@@ -11,6 +12,8 @@ type ListImagesProps = {
 
 const ListImages = ({ images, setImages }: ListImagesProps) => {
   const [loading, setLoading] = useState(true);
+  const [viewerOpen, setViewerOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     listImagesWithCategories().then((data) => {
@@ -24,6 +27,11 @@ const ListImages = ({ images, setImages }: ListImagesProps) => {
       setLoading(false);
     });
   }, []);
+
+  const openViewer = (index: number) => {
+    setCurrentImageIndex(index);
+    setViewerOpen(true);
+  };
 
   // if (loading) {
   //   return (
@@ -42,12 +50,22 @@ const ListImages = ({ images, setImages }: ListImagesProps) => {
       {images.map((image, idx) => (
         <BlurFade key={image.url} delay={0.25 + idx * 0.05} inView>
           <img
-            src={image.url}
+            src={image?.url}
             alt=''
             className='mb-4 size-full rounded-lg object-contain'
+            onClick={() => openViewer(idx)}
           />
         </BlurFade>
       ))}
+      <ImageViewer
+        images={images}
+        currentIndex={currentImageIndex}
+        isOpen={viewerOpen}
+        onClose={() => {
+          setViewerOpen(false);
+          setCurrentImageIndex(0);
+        }}
+      />
     </div>
   );
 };
