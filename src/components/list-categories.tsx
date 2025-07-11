@@ -19,12 +19,22 @@ import {
 } from '@/components/ui/alert-dialog';
 import { toast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
-import { Edit, Trash2 } from 'lucide-react';
+import { Edit, EllipsisVertical, MoreVertical, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { CategoryDialog } from './category-dialog';
 import { BlurFade } from './magicui/blur-fade';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
 
 type ListCategoriesProps = {
   categories: Category[];
@@ -34,6 +44,7 @@ type ListCategoriesProps = {
 const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
   const [loading, setLoading] = useState(true);
   const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );
@@ -132,19 +143,33 @@ const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
                     <span className='font-medium'>{category.name}</span>
                   </div>
                   <div className='flex gap-2'>
-                    <Button
-                      size='sm'
-                      variant='ghost'
-                      onClick={() => handleEditClick(category)}
-                    >
-                      <Edit className='h-4 w-4' />
-                    </Button>
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <Button size='sm' variant='ghost'>
-                          <Trash2 className='h-4 w-4' />
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant='ghost' className='h-8 w-8 p-0'>
+                          <span className='sr-only'>Open menu</span>
+                          <MoreVertical />
                         </Button>
-                      </AlertDialogTrigger>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align='end'>
+                        <DropdownMenuGroup>
+                          <DropdownMenuItem
+                            onClick={() => handleEditClick(category)}
+                          >
+                            Edit
+                            <DropdownMenuShortcut>
+                              <Edit className='h-4 w-4' />
+                            </DropdownMenuShortcut>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setDeleteOpen(true)}>
+                            Delete
+                            <DropdownMenuShortcut>
+                              <Trash2 className='h-4 w-4' />
+                            </DropdownMenuShortcut>
+                          </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                    <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
                       <AlertDialogContent>
                         <AlertDialogHeader>
                           <AlertDialogTitle>Delete Category?</AlertDialogTitle>
