@@ -1,10 +1,8 @@
 'use client';
 
 import { Image, listImagesWithCategories } from '@/api/images';
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BlurFade } from './magicui/blur-fade';
-import { Skeleton } from './ui/skeleton';
-import { Blurhash } from 'react-blurhash';
 
 type ListImagesProps = {
   images: Image[];

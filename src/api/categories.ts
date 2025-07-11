@@ -24,7 +24,10 @@ export async function addCategory(name: string, isActive = true) {
 }
 
 export async function getAllCategories() {
-  const { data, error } = await supabase.from('categories').select('*');
+  const { data, error } = await supabase
+    .from('categories')
+    .select('*')
+    .order('name', { ascending: true });
 
   if (error) {
     console.error('Error fetching categories:', error.message);
@@ -46,4 +49,23 @@ export async function deleteCategoryById(categoryId: string) {
   }
 
   return true;
+}
+
+export async function updateCategory(
+  id: string,
+  name: string,
+  isActive: boolean
+) {
+  const { data, error } = await supabase
+    .from('categories')
+    .update({ name, is_active: isActive })
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Error updating category:', error.message);
+    throw error;
+  }
+  return data;
 }

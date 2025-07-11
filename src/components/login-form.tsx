@@ -10,12 +10,12 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { toast } from '@/hooks/use-toast';
 import { createClient } from '@/lib/supabase/client';
 import { cn } from '@/lib/utils';
 import { Libre_Baskerville } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { toast } from '@/hooks/use-toast';
 
 const Libre = Libre_Baskerville({
   variable: '--font-sans',

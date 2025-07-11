@@ -1,6 +1,7 @@
 'use client';
 
-import { Category } from '@/api/categories';
+import { addCategory, Category, getAllCategories } from '@/api/categories';
+import { Image } from '@/api/images';
 import {
   Card,
   CardContent,
@@ -9,17 +10,18 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { toast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
-import { AlignLeft, Image as ImageIcon } from 'lucide-react';
+import { AlignLeft, Image as ImageIcon, Plus } from 'lucide-react';
 import { Libre_Baskerville } from 'next/font/google';
 import { useState } from 'react';
-import { AddCategory } from '../add-category';
-import { ImageUpload } from '../image-upload';
+import { CategoryDialog } from '../category-dialog';
+import { UploadDialog } from '../upload-dialog';
 import ListCategories from '../list-categories';
 import ListImages from '../list-images';
 import { LogoutButton } from '../logout-button';
 import { ThemeToggle } from '../theme-toggle';
-import { Image } from '@/api/images';
+import { Button } from '../ui/button';
 
 const Libre = Libre_Baskerville({
   variable: '--font-sans',
@@ -31,6 +33,24 @@ export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState('categories');
   const [categories, setCategories] = useState<Category[]>([]);
   const [images, setImages] = useState<Image[]>([]);
+  const [addOpen, setAddOpen] = useState(false);
+
+  const handleAddSubmit = async (name: string, isActive: boolean) => {
+    try {
+      await addCategory(name, isActive);
+      toast({
+        title: 'Category Created',
+        description: 'The new category has been added and is now available.',
+      });
+      await getAllCategories().then((data) => {
+        setCategories(data);
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setAddOpen(false);
+    }
+  };
 
   return (
     <div className='container mx-auto'>
@@ -79,7 +99,19 @@ export default function DashboardPage() {
                     View, add and delete categories
                   </CardDescription>
                 </div>
-                <AddCategory setCategories={setCategories} />
+                <CategoryDialog
+                  open={addOpen}
+                  setOpen={setAddOpen}
+                  onSubmit={handleAddSubmit}
+                  title='Add Category'
+                  actionText='Add'
+                  trigger={
+                    <Button variant='outline'>
+                      <Plus className='w-4 h-4' />
+                      <span className='hidden sm:block'>Add Category</span>
+                    </Button>
+                  }
+                />
               </CardHeader>
               <CardContent>
                 <ListCategories
@@ -96,7 +128,7 @@ export default function DashboardPage() {
                   <CardTitle>Images</CardTitle>
                   <CardDescription>View, add and delete images</CardDescription>
                 </div>
-                <ImageUpload setImages={setImages} />
+                <UploadDialog setImages={setImages} />
               </CardHeader>
               <CardContent>
                 <ListImages images={images} setImages={setImages} />

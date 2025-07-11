@@ -3,7 +3,6 @@
 import { Category, getAllCategories } from '@/api/categories';
 import { Image, listImagesWithCategories, uploadImage } from '@/api/images';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
   Dialog,
   DialogClose,
@@ -17,17 +16,16 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/hooks/use-toast';
-import { Cat, Dog, Fish, Rabbit, Turtle, Upload, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { Card, CardContent } from './ui/card';
-import { MultiSelect } from './ui/multi-select';
 import { cn } from '@/lib/utils';
+import { Upload, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { MultiSelect } from './ui/multi-select';
 
-type ImageUploadProps = {
+type UploadDialogProps = {
   setImages: React.Dispatch<React.SetStateAction<Image[]>>;
 };
 
-export function ImageUpload({ setImages }: ImageUploadProps) {
+export function UploadDialog({ setImages }: UploadDialogProps) {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);

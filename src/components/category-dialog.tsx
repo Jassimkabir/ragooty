@@ -1,6 +1,6 @@
 'use client';
 
-import { addCategory, Category, getAllCategories } from '@/api/categories';
+import { Category } from '@/api/categories';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -15,63 +15,68 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/hooks/use-toast';
-import { Plus } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Switch } from './ui/switch';
 
 type AddCategoryProps = {
   setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
 };
 
-export function AddCategory({ setCategories }: AddCategoryProps) {
+type CategoryDialogProps = {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  onSubmit: (name: string, isActive: boolean) => Promise<void>;
+  initialData?: { name: string; is_active: boolean };
+  title: string;
+  actionText: string;
+  trigger?: React.ReactNode;
+};
+
+export function CategoryDialog({
+  open,
+  setOpen,
+  onSubmit,
+  initialData,
+  title,
+  actionText,
+  trigger,
+}: CategoryDialogProps) {
   const [name, setName] = useState('');
   const [isActive, setIsActive] = useState(false);
-  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (initialData) {
+      setName(initialData.name);
+      setIsActive(initialData.is_active);
+    } else {
+      setName('');
+      setIsActive(false);
+    }
+  }, [initialData, open]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
     if (!name.trim()) {
       toast({
         title: 'Category name required',
-        description: 'Please enter a category name before adding.',
+        description: 'Please enter a category name before saving.',
         variant: 'destructive',
       });
       return;
     }
-
-    try {
-      await addCategory(name, isActive);
-      toast({
-        title: 'Category Created',
-        description: 'The new category has been added and is now available.',
-      });
-      setName('');
-      setIsActive(false);
-      getAllCategories().then((data) => {
-        setCategories(data);
-      });
-      setOpen(false);
-    } catch (error) {
-      console.log(error);
-    }
+    await onSubmit(name, isActive);
+    setOpen(false);
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <form onSubmit={handleSubmit}>
-        <DialogTrigger asChild>
-          <Button variant='outline'>
-            <Plus className='w-4 h-4' />
-            <span className='hidden sm:block'>Add Category</span>
-          </Button>
-        </DialogTrigger>
+        {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
         <DialogContent className='sm:max-w-[425px]'>
           <DialogHeader>
-            <DialogTitle>Add category</DialogTitle>
+            <DialogTitle>{title}</DialogTitle>
             <DialogDescription>
-              Enter the category details below. Click "Add" to add the new
-              category.
+              Enter the category details below.
             </DialogDescription>
           </DialogHeader>
           <div className='grid gap-4'>
@@ -98,7 +103,7 @@ export function AddCategory({ setCategories }: AddCategoryProps) {
               <Button variant='outline'>Cancel</Button>
             </DialogClose>
             <Button type='submit' onClick={handleSubmit}>
-              Add
+              {actionText}
             </Button>
           </DialogFooter>
         </DialogContent>
