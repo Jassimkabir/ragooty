@@ -49,9 +49,20 @@ const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
     null
   );
 
+  useEffect(() => {
+    getAllCategories().then((data) => {
+      setCategories(data);
+      setLoading(false);
+    });
+  }, []);
+
   const handleDeleteCategory = async (categoryId: string) => {
     try {
       await deleteCategoryById(categoryId);
+      await getAllCategories().then((data) => {
+        setCategories(data);
+        setLoading(false);
+      });
       toast({
         title: 'Category Deleted',
         description: 'The category has been removed successfully.',
@@ -61,13 +72,6 @@ const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    getAllCategories().then((data) => {
-      setCategories(data);
-      setLoading(false);
-    });
-  }, [handleDeleteCategory]);
 
   const handleEditClick = (category: Category) => {
     setSelectedCategory(category);

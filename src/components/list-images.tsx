@@ -17,19 +17,6 @@ const ListImages = ({ images, setImages }: ListImagesProps) => {
   const [viewerOpen, setViewerOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const handleDeleteImage = async (id: string, path: string) => {
-    try {
-      await deleteImage(id, path);
-      toast({
-        title: 'Image Deleted',
-        description: 'The image has been removed successfully.',
-        variant: 'destructive',
-      });
-    } catch (err) {
-      toast({ title: 'Delete failed', description: String(err) });
-    }
-  };
-
   useEffect(() => {
     listImagesWithCategories().then((data) => {
       const fixedData = data.map((img: any) => ({
@@ -41,7 +28,30 @@ const ListImages = ({ images, setImages }: ListImagesProps) => {
       setImages(fixedData);
       setLoading(false);
     });
-  }, [handleDeleteImage]);
+  }, []);
+
+  const handleDeleteImage = async (id: string, path: string) => {
+    try {
+      await deleteImage(id, path);
+      await listImagesWithCategories().then((data) => {
+        const fixedData = data.map((img: any) => ({
+          ...img,
+          image_categories: img.image_categories.map((ic: any) => ({
+            category: Array.isArray(ic.category) ? ic.category[0] : ic.category,
+          })),
+        }));
+        setImages(fixedData);
+        setLoading(false);
+      });
+      toast({
+        title: 'Image Deleted',
+        description: 'The image has been removed successfully.',
+        variant: 'destructive',
+      });
+    } catch (err) {
+      toast({ title: 'Delete failed', description: String(err) });
+    }
+  };
 
   const openViewer = (index: number) => {
     setCurrentImageIndex(index);
