@@ -18,6 +18,7 @@ export type Image = {
   blurhash: string;
   width: number;
   height: number;
+  path: string;
   image_categories: ImageCategory[];
 };
 
@@ -30,14 +31,12 @@ export async function uploadImage(file: File, categoryIds: string[]) {
   const { width, height } = await getImageDimensions(file);
   const fileName = `${Date.now()}-${file.name}`;
 
-  // Upload to Supabase Storage
   const { error: uploadError } = await supabase.storage
     .from('images')
     .upload(fileName, file);
 
   if (uploadError) throw uploadError;
 
-  // Get public URL
   const { data: urlData } = supabase.storage
     .from('images')
     .getPublicUrl(fileName);
@@ -45,16 +44,14 @@ export async function uploadImage(file: File, categoryIds: string[]) {
   const publicUrl = urlData?.publicUrl;
   if (!publicUrl) throw new Error('Failed to get public URL');
 
-  // Insert into `images` table with blurhash
   const { data: imageData, error: imageError } = await supabase
     .from('images')
-    .insert({ url: publicUrl, blurhash, width, height })
+    .insert({ url: publicUrl, blurhash, width, height, path: fileName })
     .select()
     .single();
 
   if (imageError || !imageData) throw imageError;
 
-  // Link categories
   const links = categoryIds.map((catId) => ({
     image_id: imageData.id,
     category_id: catId,
@@ -76,6 +73,7 @@ export async function listImagesWithCategories() {
         blurhash,
         width,
         height,
+        path,
         image_categories (
           category:category_id (
             id,
@@ -88,4 +86,25 @@ export async function listImagesWithCategories() {
   if (error) throw error;
 
   return data;
+}
+
+export async function deleteImage(imageId: string, filePath: string) {
+  // 1. Delete from storage
+  const { error: storageError } = await supabase.storage
+    .from('images')
+    .remove([filePath]);
+
+  if (storageError)
+    throw new Error(`Failed to delete file: ${storageError.message}`);
+
+  // 2. Delete from DB
+  const { error: dbError } = await supabase
+    .from('images')
+    .delete()
+    .eq('id', imageId);
+
+  if (dbError)
+    throw new Error(`Failed to delete image record: ${dbError.message}`);
+
+  return true;
 }

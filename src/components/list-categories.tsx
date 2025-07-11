@@ -15,11 +15,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { toast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
-import { Edit, EllipsisVertical, MoreVertical, Trash2 } from 'lucide-react';
+import { Edit, MoreVertical, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { CategoryDialog } from './category-dialog';
 import { BlurFade } from './magicui/blur-fade';
@@ -30,8 +29,6 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
@@ -48,21 +45,13 @@ const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );
-
-  useEffect(() => {
-    getAllCategories().then((data) => {
-      setCategories(data);
-      setLoading(false);
-    });
-  }, []);
+  const [categoryToDelete, setCategoryToDelete] = useState<Category | null>(
+    null
+  );
 
   const handleDeleteCategory = async (categoryId: string) => {
     try {
       await deleteCategoryById(categoryId);
-      await getAllCategories().then((data) => {
-        setCategories(data);
-        setLoading(false);
-      });
       toast({
         title: 'Category Deleted',
         description: 'The category has been removed successfully.',
@@ -72,6 +61,13 @@ const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    getAllCategories().then((data) => {
+      setCategories(data);
+      setLoading(false);
+    });
+  }, [handleDeleteCategory]);
 
   const handleEditClick = (category: Category) => {
     setSelectedCategory(category);
@@ -160,7 +156,9 @@ const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
                               <Edit className='h-4 w-4' />
                             </DropdownMenuShortcut>
                           </DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => setDeleteOpen(true)}>
+                          <DropdownMenuItem
+                            onClick={() => setCategoryToDelete(category)}
+                          >
                             Delete
                             <DropdownMenuShortcut>
                               <Trash2 className='h-4 w-4' />
@@ -169,25 +167,6 @@ const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
                         </DropdownMenuGroup>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                    <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Delete Category?</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            This action cannot be undone. This will permanently
-                            delete this category and remove it from your list.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction
-                            onClick={() => handleDeleteCategory(category.id)}
-                          >
-                            Continue
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
                   </div>
                 </div>
               </CardContent>
@@ -195,6 +174,35 @@ const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
           </BlurFade>
         ))}
       </div>
+      <AlertDialog
+        open={!!categoryToDelete}
+        onOpenChange={(open) => {
+          if (!open) setCategoryToDelete(null);
+        }}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Category?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete this
+              category and remove it from your list.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setCategoryToDelete(null)}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                if (categoryToDelete) handleDeleteCategory(categoryToDelete.id);
+                setCategoryToDelete(null);
+              }}
+            >
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
       <CategoryDialog
         open={editOpen}
         setOpen={setEditOpen}
