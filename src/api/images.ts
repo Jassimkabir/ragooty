@@ -89,7 +89,6 @@ export async function listImagesWithCategories() {
 }
 
 export async function deleteImage(imageId: string, filePath: string) {
-  // 1. Delete from storage
   const { error: storageError } = await supabase.storage
     .from('images')
     .remove([filePath]);
@@ -97,7 +96,6 @@ export async function deleteImage(imageId: string, filePath: string) {
   if (storageError)
     throw new Error(`Failed to delete file: ${storageError.message}`);
 
-  // 2. Delete from DB
   const { error: dbError } = await supabase
     .from('images')
     .delete()
@@ -107,4 +105,27 @@ export async function deleteImage(imageId: string, filePath: string) {
     throw new Error(`Failed to delete image record: ${dbError.message}`);
 
   return true;
+}
+
+export async function updateImageCategories(
+  imageId: string,
+  newCategoryIds: string[]
+) {
+  const { error: deleteError } = await supabase
+    .from('image_categories')
+    .delete()
+    .eq('image_id', imageId);
+
+  if (deleteError) throw deleteError;
+
+  const newLinks = newCategoryIds.map((catId) => ({
+    image_id: imageId,
+    category_id: catId,
+  }));
+
+  const { error: insertError } = await supabase
+    .from('image_categories')
+    .insert(newLinks);
+
+  if (insertError) throw insertError;
 }

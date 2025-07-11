@@ -128,7 +128,7 @@ export default function DashboardPage() {
                   <CardTitle>Images</CardTitle>
                   <CardDescription>View, add and delete images</CardDescription>
                 </div>
-                <UploadDialog setImages={setImages} />
+                <UploadDialog setImages={setImages} categories={categories} />
               </CardHeader>
               <CardContent>
                 <ListImages images={images} setImages={setImages} />

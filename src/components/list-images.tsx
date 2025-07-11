@@ -1,6 +1,7 @@
 'use client';
 
 import { deleteImage, Image, listImagesWithCategories } from '@/api/images';
+import { getAllCategories, Category } from '@/api/categories';
 import { toast } from '@/hooks/use-toast';
 import { useEffect, useState } from 'react';
 import ImageCard from './image-card';
@@ -16,9 +17,10 @@ const ListImages = ({ images, setImages }: ListImagesProps) => {
   const [loading, setLoading] = useState(true);
   const [viewerOpen, setViewerOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [categories, setCategories] = useState<Category[]>([]);
 
-  useEffect(() => {
-    listImagesWithCategories().then((data) => {
+  const getImages = async () => {
+    await listImagesWithCategories().then((data) => {
       const fixedData = data.map((img: any) => ({
         ...img,
         image_categories: img.image_categories.map((ic: any) => ({
@@ -28,21 +30,23 @@ const ListImages = ({ images, setImages }: ListImagesProps) => {
       setImages(fixedData);
       setLoading(false);
     });
+  };
+
+  const getCategories = async () => {
+    await getAllCategories().then((data) => {
+      setCategories(data);
+    });
+  };
+
+  useEffect(() => {
+    getImages();
+    getCategories();
   }, []);
 
   const handleDeleteImage = async (id: string, path: string) => {
     try {
       await deleteImage(id, path);
-      await listImagesWithCategories().then((data) => {
-        const fixedData = data.map((img: any) => ({
-          ...img,
-          image_categories: img.image_categories.map((ic: any) => ({
-            category: Array.isArray(ic.category) ? ic.category[0] : ic.category,
-          })),
-        }));
-        setImages(fixedData);
-        setLoading(false);
-      });
+      await getImages();
       toast({
         title: 'Image Deleted',
         description: 'The image has been removed successfully.',
@@ -78,6 +82,8 @@ const ListImages = ({ images, setImages }: ListImagesProps) => {
             image={image}
             onClick={() => openViewer(idx)}
             onDelete={() => handleDeleteImage(image.id, image.path)}
+            onUpdated={getImages}
+            categories={categories}
           />
         </BlurFade>
       ))}

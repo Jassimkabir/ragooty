@@ -20,15 +20,26 @@ import {
 import { Edit, MoreHorizontal, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from './ui/button';
+import UpdateImage from './update-image-dialog';
+import { Category } from '@/api/categories';
 
 type ImageCardProps = {
   image: Image;
   onClick: () => void;
   onDelete: () => void;
+  onUpdated?: () => void;
+  categories: Category[];
 };
 
-const ImageCard = ({ image, onClick, onDelete }: ImageCardProps) => {
+const ImageCard = ({
+  image,
+  onClick,
+  onDelete,
+  onUpdated,
+  categories,
+}: ImageCardProps) => {
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [updateOpen, setUpdateOpen] = useState(false);
 
   return (
     <div className='relative'>
@@ -43,7 +54,7 @@ const ImageCard = ({ image, onClick, onDelete }: ImageCardProps) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
           <DropdownMenuGroup>
-            <DropdownMenuItem disabled>
+            <DropdownMenuItem onClick={() => setUpdateOpen(true)}>
               Edit
               <DropdownMenuShortcut>
                 <Edit className='h-4 w-4' />
@@ -75,6 +86,13 @@ const ImageCard = ({ image, onClick, onDelete }: ImageCardProps) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <UpdateImage
+        open={updateOpen}
+        onOpenChange={setUpdateOpen}
+        image={image}
+        onUpdated={onUpdated}
+        categories={categories}
+      />
       <img
         src={image?.url}
         alt=''

@@ -49,20 +49,21 @@ const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
     null
   );
 
-  useEffect(() => {
-    getAllCategories().then((data) => {
+  const getCategories = async () => {
+    await getAllCategories().then((data) => {
       setCategories(data);
       setLoading(false);
     });
+  };
+
+  useEffect(() => {
+    getCategories();
   }, []);
 
   const handleDeleteCategory = async (categoryId: string) => {
     try {
       await deleteCategoryById(categoryId);
-      await getAllCategories().then((data) => {
-        setCategories(data);
-        setLoading(false);
-      });
+      await getCategories();
       toast({
         title: 'Category Deleted',
         description: 'The category has been removed successfully.',
@@ -73,11 +74,6 @@ const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
     }
   };
 
-  const handleEditClick = (category: Category) => {
-    setSelectedCategory(category);
-    setEditOpen(true);
-  };
-
   const handleEditSubmit = async (name: string, isActive: boolean) => {
     if (!selectedCategory) return;
     try {
@@ -86,16 +82,18 @@ const ListCategories = ({ categories, setCategories }: ListCategoriesProps) => {
         title: 'Category Updated',
         description: 'The category has been updated successfully.',
       });
-      await getAllCategories().then((data) => {
-        setCategories(data);
-        setLoading(false);
-      });
+      await getCategories();
     } catch (error) {
       console.log(error);
     } finally {
       setEditOpen(false);
       setSelectedCategory(null);
     }
+  };
+
+  const handleEditClick = (category: Category) => {
+    setSelectedCategory(category);
+    setEditOpen(true);
   };
 
   // if (loading) {

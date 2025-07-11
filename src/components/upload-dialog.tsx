@@ -23,22 +23,16 @@ import { MultiSelect } from './ui/multi-select';
 
 type UploadDialogProps = {
   setImages: React.Dispatch<React.SetStateAction<Image[]>>;
+  categories: Category[];
 };
 
-export function UploadDialog({ setImages }: UploadDialogProps) {
+export function UploadDialog({ setImages, categories }: UploadDialogProps) {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [categories, setCategories] = useState<Category[]>([]);
   const [selected, setSelected] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
-
-  useEffect(() => {
-    getAllCategories().then((data) => {
-      setCategories(data);
-    });
-  }, []);
 
   useEffect(() => {
     if (!file) {
@@ -206,7 +200,7 @@ export function UploadDialog({ setImages }: UploadDialogProps) {
             )}
             <div>
               <MultiSelect
-                options={categories.map((category) => ({
+                options={categories?.map((category) => ({
                   value: category.id,
                   label: category.name,
                   icon: (
