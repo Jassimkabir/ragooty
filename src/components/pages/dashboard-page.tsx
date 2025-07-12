@@ -80,7 +80,7 @@ export default function DashboardPage() {
           onValueChange={setActiveTab}
           className='w-full gap-4'
         >
-          <TabsList>
+          <TabsList className='w-full'>
             <TabsTrigger value='categories' className='flex items-center gap-2'>
               <AlignLeft className='h-4 w-4' />
               Categories
