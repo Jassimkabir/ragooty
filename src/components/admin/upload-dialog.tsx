@@ -19,7 +19,7 @@ import { toast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { Upload, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { MultiSelect } from './ui/multi-select';
+import { MultiSelect } from '../ui/multi-select';
 
 type UploadDialogProps = {
   setImages: React.Dispatch<React.SetStateAction<Image[]>>;

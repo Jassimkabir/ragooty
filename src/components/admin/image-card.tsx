@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Edit, MoreHorizontal, Trash2 } from 'lucide-react';
 import { useState } from 'react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import UpdateImage from './update-image-dialog';
 import { Category } from '@/api/categories';
 

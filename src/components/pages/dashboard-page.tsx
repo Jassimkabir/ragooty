@@ -15,12 +15,12 @@ import { cn } from '@/lib/utils';
 import { AlignLeft, Image as ImageIcon, Plus } from 'lucide-react';
 import { Libre_Baskerville } from 'next/font/google';
 import { useState } from 'react';
-import { CategoryDialog } from '../category-dialog';
-import { UploadDialog } from '../upload-dialog';
-import ListCategories from '../list-categories';
-import ListImages from '../list-images';
-import { LogoutButton } from '../logout-button';
-import { ThemeToggle } from '../theme-toggle';
+import { CategoryDialog } from '../admin/category-dialog';
+import { UploadDialog } from '../admin/upload-dialog';
+import ListCategories from '../admin/list-categories';
+import ListImages from '../admin/list-images';
+import { LogoutButton } from '../admin/logout-button';
+import { ThemeToggle } from '../admin/theme-toggle';
 import { Button } from '../ui/button';
 
 const Libre = Libre_Baskerville({

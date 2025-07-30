@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeProvider } from '@/components/admin/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';

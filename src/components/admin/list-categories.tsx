@@ -21,9 +21,9 @@ import { cn } from '@/lib/utils';
 import { Edit, MoreVertical, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { CategoryDialog } from './category-dialog';
-import { BlurFade } from './magicui/blur-fade';
-import { Button } from './ui/button';
-import { Card, CardContent } from './ui/card';
+import { BlurFade } from '../magicui/blur-fade';
+import { Button } from '../ui/button';
+import { Card, CardContent } from '../ui/card';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,7 +31,7 @@ import {
   DropdownMenuItem,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu';
+} from '../ui/dropdown-menu';
 
 type ListCategoriesProps = {
   categories: Category[];

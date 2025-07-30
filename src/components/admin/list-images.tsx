@@ -6,7 +6,7 @@ import { toast } from '@/hooks/use-toast';
 import { useEffect, useState } from 'react';
 import ImageCard from './image-card';
 import { ImageViewer } from './image-viewer';
-import { BlurFade } from './magicui/blur-fade';
+import { BlurFade } from '../magicui/blur-fade';
 
 type ListImagesProps = {
   images: Image[];

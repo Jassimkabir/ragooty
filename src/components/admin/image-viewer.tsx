@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from './ui/button';
-import { Dialog, DialogContent, DialogTitle } from './ui/dialog';
-import { Badge } from './ui/badge';
+import { Button } from '../ui/button';
+import { Dialog, DialogContent, DialogTitle } from '../ui/dialog';
+import { Badge } from '../ui/badge';
 import { Image } from '@/api/images';
 
 interface ImageViewerProps {

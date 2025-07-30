@@ -8,8 +8,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Image } from '@/api/images';
-import { Button } from './ui/button';
-import { MultiSelect } from './ui/multi-select';
+import { Button } from '../ui/button';
+import { MultiSelect } from '../ui/multi-select';
 import { Category, getAllCategories } from '@/api/categories';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
