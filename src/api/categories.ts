@@ -69,3 +69,18 @@ export async function updateCategory(
   }
   return data;
 }
+
+export async function getActiveCategories() {
+  const { data, error } = await supabase
+    .from('categories')
+    .select('*')
+    .eq('is_active', true)
+    .order('name', { ascending: true });
+
+  if (error) {
+    console.error('Error fetching active categories:', error.message);
+    throw error;
+  }
+
+  return data;
+}

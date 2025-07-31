@@ -61,7 +61,7 @@ const HeroBanner = () => {
             className='flex gap-2 items-center text-white hover:underline'
             whileHover={{ x: 4 }}
           >
-            Gallery
+            Get In Touch
             <MoveUpRight className='w-4 h-4' />
           </motion.a>
         </motion.div>

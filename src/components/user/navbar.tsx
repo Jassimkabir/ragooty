@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, Variants } from 'motion/react';
-import { MenuIcon, XIcon } from 'lucide-react';
+import { MenuIcon, MoveUpRight, XIcon } from 'lucide-react';
 import { Cinzel_Decorative, Fira_Sans_Condensed } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
@@ -17,13 +17,20 @@ const Cin = Cinzel_Decorative({
 const Fira = Fira_Sans_Condensed({
   variable: '--font-sans',
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['300', '700'],
 });
 
 const links = [
   { title: 'Home', href: '/' },
+  { title: 'Gallery', href: '/gallery' },
   { title: 'About', href: '/about' },
   { title: 'Contact', href: '/contact' },
+];
+
+const socialLinks = [
+  { title: 'Instagram', href: 'https://www.instagram.com/ragooty_sasidharan/' },
+  { title: 'Facebook', href: 'https://www.facebook.com/r4rag.in/' },
+  { title: 'Behance', href: '/about' },
 ];
 
 const modalVariants: Variants = {
@@ -88,15 +95,17 @@ const Navbar = () => {
         <div style={{ minHeight: '1.75rem' }}></div>
         <AnimatePresence>
           {scrolled && (
-            <motion.div
-              className={cn(Cin.className, 'text-xl text-center')}
-              initial={{ opacity: 0, y: 0 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 0 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-            >
-              Ragooty Sasidharan
-            </motion.div>
+            <Link href={'/'}>
+              <motion.div
+                className={cn(Cin.className, 'text-xl text-center')}
+                initial={{ opacity: 0, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 0 }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+              >
+                Ragooty Sasidharan
+              </motion.div>
+            </Link>
           )}
         </AnimatePresence>
         <button onClick={() => setOpen((o) => !o)} aria-label='Toggle menu'>
@@ -114,15 +123,15 @@ const Navbar = () => {
           >
             <motion.button
               onClick={() => setOpen(false)}
-              className='absolute top-6 right-4 md:right-6 text-white rounded-ful'
+              className='absolute top-7 right-4 md:right-6 text-white rounded-ful'
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0, transition: { duration: 0.2 } }}
             >
-              <XIcon size={24} />
+              <XIcon size={20} />
             </motion.button>
             <motion.div
-              className='flex flex-col lg:flex-row gap-8 text-white text-3xl font-semibold w-full justify-center items-center text-center'
+              className='flex flex-col lg:flex-row gap-8 text-foreground text-3xl font-semibold w-full justify-center items-center text-center'
               variants={listVariants}
               initial='hidden'
               animate='visible'
@@ -136,12 +145,37 @@ const Navbar = () => {
                     className={cn(
                       'transition-colors',
                       pathname === link.href
-                        ? 'text-white'
-                        : 'text-foreground/30 hover:text-white',
+                        ? 'text-foreground'
+                        : 'text-foreground/30 hover:text-foreground',
                       Fira.className
                     )}
                   >
                     {link.title}
+                  </Link>
+                </motion.p>
+              ))}
+            </motion.div>
+            <motion.div
+              className='flex flex-col lg:flex-row gap-8 text-foreground text-md w-full justify-center items-center text-center mt-10'
+              variants={listVariants}
+              initial='hidden'
+              animate='visible'
+              exit='exit'
+            >
+              {socialLinks.map((link) => (
+                <motion.p key={link.href} variants={itemVariants}>
+                  <Link
+                    href={link.href}
+                    target='_blank'
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      'transition-colors flex gap-2 items-center',
+                      'text-foreground/30 hover:text-foreground',
+                      Fira.className
+                    )}
+                  >
+                    {link.title}
+                    <MoveUpRight className='w-4 h-4' />
                   </Link>
                 </motion.p>
               ))}
