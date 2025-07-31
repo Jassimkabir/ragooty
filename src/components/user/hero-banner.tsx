@@ -36,39 +36,41 @@ const HeroBanner = () => {
   }, []);
 
   return (
-    <section className='w-full flex flex-col md:flex-row items-center justify-between'>
-      <motion.div
-        className='md:w-2/3 w-full space-y-6 px-64'
-        initial='hidden'
-        animate='visible'
-        variants={textVariants}
-      >
-        <h1
-          className={cn(
-            Cin.className,
-            'text-4xl md:text-6xl font-semibold tracking-tight leading-tight'
-          )}
+    <section className='w-full flex flex-col md:flex-row md:mt-0 mt-[76px] items-center justify-between'>
+      <motion.div className='md:w-2/3 w-full flex items-center justify-center md:px-0 px-4 md:py-0 py-12'>
+        <motion.div
+          initial='hidden'
+          animate='visible'
+          variants={textVariants}
+          className='flex flex-col gap-6'
         >
-          Ragooty Sasidharan
-        </h1>
-        <p className='text-lg md:text-xl max-w-xl text-gray-300'>
-          Capturing moments, framing emotions. Explore the world through my
-          lens.
-        </p>
-        <motion.a
-          href='#gallery'
-          className='flex gap-2 items-center text-white hover:underline'
-          whileHover={{ x: 4 }}
-        >
-          Gallery
-          <MoveUpRight className='w-4 h-4' />
-        </motion.a>
+          <h1
+            className={cn(
+              Cin.className,
+              'text-4xl md:text-6xl font-semibold tracking-tight leading-tight'
+            )}
+          >
+            Ragooty Sasidharan
+          </h1>
+          <p className='text-lg md:text-xl max-w-xl text-gray-300'>
+            Capturing moments, framing emotions. Explore the world through my
+            lens.
+          </p>
+          <motion.a
+            href='#gallery'
+            className='flex gap-2 items-center text-white hover:underline'
+            whileHover={{ x: 4 }}
+          >
+            Gallery
+            <MoveUpRight className='w-4 h-4' />
+          </motion.a>
+        </motion.div>
       </motion.div>
 
       <motion.div
         className='md:w-1/3 w-full mt-10 md:mt-0 relative'
-        initial={{ opacity: 0, x: 30 }}
-        animate={{ opacity: 1, x: 0, transition: { duration: 0.8 } }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { duration: 0.8 } }}
       >
         <Carousel plugins={[Autoplay({ delay: 3000 }), Fade()]}>
           <CarouselContent>

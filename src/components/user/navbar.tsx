@@ -102,7 +102,6 @@ const Navbar = () => {
             animate='visible'
             exit='exit'
           >
-            <ThemeToggle />
             <motion.button
               onClick={() => setOpen(false)}
               className='absolute top-6 right-4 md:right-6 text-white rounded-ful'
