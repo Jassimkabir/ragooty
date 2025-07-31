@@ -37,7 +37,7 @@ const HeroBanner = () => {
 
   return (
     <section className='w-full flex flex-col md:flex-row md:mt-0 mt-[76px] items-center justify-between'>
-      <motion.div className='md:w-2/3 w-full flex items-center justify-center md:px-0 px-4 md:py-0 py-12'>
+      <motion.div className='md:w-2/3 w-full flex items-center container mx-auto md:px-6 px-4'>
         <motion.div
           initial='hidden'
           animate='visible'

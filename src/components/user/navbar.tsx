@@ -2,13 +2,19 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, Variants } from 'motion/react';
 import { MenuIcon, XIcon } from 'lucide-react';
-import { Cinzel_Decorative } from 'next/font/google';
+import { Cinzel_Decorative, Fira_Sans_Condensed } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from '../admin/theme-toggle';
 
 const Cin = Cinzel_Decorative({
+  variable: '--font-sans',
+  subsets: ['latin'],
+  weight: ['400', '700'],
+});
+
+const Fira = Fira_Sans_Condensed({
   variable: '--font-sans',
   subsets: ['latin'],
   weight: ['400', '700'],
@@ -77,26 +83,30 @@ const Navbar = () => {
 
   return (
     <header className={cn('py-6 px-4 md:px-6 fixed top-0 left-0 right-0 z-50')}>
+      <div className='absolute inset-0 pointer-events-none bg-gradient-to-b from-background/70 to-transparent z-[-1]' />
       <div className='flex justify-between items-center'>
-        <div></div>
-        <div
-          className={cn(
-            Cin.className,
-            'text-lg text-center',
-            `${scrolled ? 'visible' : 'invisible'}`
+        <div style={{ minHeight: '1.75rem' }}></div>
+        <AnimatePresence>
+          {scrolled && (
+            <motion.div
+              className={cn(Cin.className, 'text-xl text-center')}
+              initial={{ opacity: 0, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 0 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+            >
+              Ragooty Sasidharan
+            </motion.div>
           )}
-        >
-          Ragooty Sasidharan
-        </div>
+        </AnimatePresence>
         <button onClick={() => setOpen((o) => !o)} aria-label='Toggle menu'>
-          <MenuIcon size={24} className={open ? 'invisible' : ''} />
+          <MenuIcon size={20} className={open ? 'invisible' : ''} />
         </button>
       </div>
-
       <AnimatePresence>
         {open && (
           <motion.nav
-            className='fixed inset-0 bg-background/80 flex flex-col justify-center items-center z-50'
+            className='fixed inset-0 bg-background/80 backdrop-blur-lg flex flex-col justify-center items-center z-50'
             variants={modalVariants}
             initial='hidden'
             animate='visible'
@@ -127,7 +137,8 @@ const Navbar = () => {
                       'transition-colors',
                       pathname === link.href
                         ? 'text-white'
-                        : 'text-foreground/30 hover:text-white'
+                        : 'text-foreground/30 hover:text-white',
+                      Fira.className
                     )}
                   >
                     {link.title}
