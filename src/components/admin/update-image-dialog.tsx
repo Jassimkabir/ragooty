@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Image } from '@/api/images';
+import { ImageWithCategory } from '@/api/images';
 import { Button } from '../ui/button';
 import { MultiSelect } from '../ui/multi-select';
 import { Category, getAllCategories } from '@/api/categories';
@@ -19,7 +19,7 @@ import { toast } from '@/hooks/use-toast';
 type UpdateImageProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  image: Image;
+  image: ImageWithCategory;
   onUpdated?: () => void;
   categories: Category[];
 };

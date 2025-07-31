@@ -1,4 +1,4 @@
-import { Image } from '@/api/images';
+import { ImageWithCategory } from '@/api/images';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,7 +24,7 @@ import UpdateImage from './update-image-dialog';
 import { Category } from '@/api/categories';
 
 type ImageCardProps = {
-  image: Image;
+  image: ImageWithCategory;
   onClick: () => void;
   onDelete: () => void;
   onUpdated?: () => void;

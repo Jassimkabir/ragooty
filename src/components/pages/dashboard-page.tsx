@@ -1,7 +1,7 @@
 'use client';
 
 import { addCategory, Category, getAllCategories } from '@/api/categories';
-import { Image } from '@/api/images';
+import { ImageWithCategory } from '@/api/images';
 import {
   Card,
   CardContent,
@@ -32,7 +32,7 @@ const Libre = Libre_Baskerville({
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState('categories');
   const [categories, setCategories] = useState<Category[]>([]);
-  const [images, setImages] = useState<Image[]>([]);
+  const [images, setImages] = useState<ImageWithCategory[]>([]);
   const [addOpen, setAddOpen] = useState(false);
 
   const handleAddSubmit = async (name: string, isActive: boolean) => {

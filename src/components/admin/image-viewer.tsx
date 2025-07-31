@@ -3,10 +3,10 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Dialog, DialogContent, DialogTitle } from '../ui/dialog';
 import { Badge } from '../ui/badge';
-import { Image } from '@/api/images';
+import { ImageWithCategory } from '@/api/images';
 
 interface ImageViewerProps {
-  images: Image[];
+  images: ImageWithCategory[];
   currentIndex: number;
   isOpen: boolean;
   onClose: () => void;

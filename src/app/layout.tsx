@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
+import Navbar from '@/components/user/navbar';
 
 const poppins = Poppins({
   variable: '--font-sans',
@@ -27,10 +28,11 @@ export default function RootLayout({
       <body className={cn(poppins.className, '')}>
         <ThemeProvider
           attribute='class'
-          defaultTheme='system'
+          defaultTheme='dark'
           enableSystem
           disableTransitionOnChange
         >
+          <Navbar />
           {children}
           <Toaster />
         </ThemeProvider>

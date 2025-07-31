@@ -1,7 +1,11 @@
 'use client';
 
 import { Category, getAllCategories } from '@/api/categories';
-import { Image, listImagesWithCategories, uploadImage } from '@/api/images';
+import {
+  ImageWithCategory,
+  listImagesWithCategories,
+  uploadImage,
+} from '@/api/images';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -22,7 +26,7 @@ import { useEffect, useState } from 'react';
 import { MultiSelect } from '../ui/multi-select';
 
 type UploadDialogProps = {
-  setImages: React.Dispatch<React.SetStateAction<Image[]>>;
+  setImages: React.Dispatch<React.SetStateAction<ImageWithCategory[]>>;
   categories: Category[];
 };
 

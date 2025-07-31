@@ -1,6 +1,10 @@
 'use client';
 
-import { deleteImage, Image, listImagesWithCategories } from '@/api/images';
+import {
+  deleteImage,
+  ImageWithCategory,
+  listImagesWithCategories,
+} from '@/api/images';
 import { getAllCategories, Category } from '@/api/categories';
 import { toast } from '@/hooks/use-toast';
 import { useEffect, useState } from 'react';
@@ -9,8 +13,8 @@ import { ImageViewer } from './image-viewer';
 import { BlurFade } from '../magicui/blur-fade';
 
 type ListImagesProps = {
-  images: Image[];
-  setImages: React.Dispatch<React.SetStateAction<Image[]>>;
+  images: ImageWithCategory[];
+  setImages: React.Dispatch<React.SetStateAction<ImageWithCategory[]>>;
 };
 
 const ListImages = ({ images, setImages }: ListImagesProps) => {

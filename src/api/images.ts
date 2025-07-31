@@ -19,6 +19,15 @@ export type Image = {
   width: number;
   height: number;
   path: string;
+};
+
+export type ImageWithCategory = {
+  id: string;
+  url: string;
+  blurhash: string;
+  width: number;
+  height: number;
+  path: string;
   image_categories: ImageCategory[];
 };
 
@@ -128,4 +137,24 @@ export async function updateImageCategories(
     .insert(newLinks);
 
   if (insertError) throw insertError;
+}
+
+export async function getImagesByCategory(
+  categoryId: string
+): Promise<Image[]> {
+  const { data, error } = await supabase
+    .from('image_categories')
+    .select('image:images(*)')
+    .eq('category_id', categoryId);
+
+  if (error) {
+    console.error('Error fetching images by category:', error.message);
+    throw error;
+  }
+
+  return (data ?? [])
+    .flatMap((entry) =>
+      Array.isArray(entry.image) ? entry.image : [entry.image]
+    )
+    .filter((img): img is Image => !!img?.id);
 }

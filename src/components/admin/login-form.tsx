@@ -13,11 +13,11 @@ import { Label } from '@/components/ui/label';
 import { toast } from '@/hooks/use-toast';
 import { createClient } from '@/lib/supabase/client';
 import { cn } from '@/lib/utils';
-import { Libre_Baskerville } from 'next/font/google';
+import { Cinzel_Decorative } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-const Libre = Libre_Baskerville({
+const Cinzel = Cinzel_Decorative({
   variable: '--font-sans',
   subsets: ['latin'],
   weight: ['400', '700'],
@@ -69,10 +69,7 @@ export function LoginForm({
       <Card>
         <CardHeader>
           <CardTitle
-            className={cn(
-              Libre.className,
-              'text-2xl sm:text-3xl md:text-4xl font-bold'
-            )}
+            className={cn(Cinzel.className, 'text-2xl sm:text-3xl md:text-4xl')}
           >
             Ragooty Sasidharan
           </CardTitle>
