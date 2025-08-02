@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from '../admin/theme-toggle';
+import { MorphingText } from '../magicui/morphing-text';
 
 const Cin = Cinzel_Decorative({
   variable: '--font-sans',
@@ -108,8 +109,15 @@ const Navbar = () => {
             </Link>
           )}
         </AnimatePresence>
-        <button onClick={() => setOpen((o) => !o)} aria-label='Toggle menu'>
-          <MenuIcon size={20} className={open ? 'invisible' : ''} />
+        <button
+          onClick={() => setOpen((o) => !o)}
+          aria-label='Toggle menu'
+          className='rounded-full bg-foreground/40 backdrop-blur-xl p-3'
+        >
+          <MenuIcon
+            size={20}
+            className={cn(open ? 'invisible' : '', 'text-background')}
+          />
         </button>
       </div>
       <AnimatePresence>
@@ -123,12 +131,12 @@ const Navbar = () => {
           >
             <motion.button
               onClick={() => setOpen(false)}
-              className='absolute top-7 right-4 md:right-6 text-white rounded-ful'
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0, transition: { duration: 0.2 } }}
+              className='absolute top-6 right-4 md:right-6 rounded-full bg-foreground/40 backdrop-blur-xl p-3'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 0.2 } }}
             >
-              <XIcon size={20} />
+              <XIcon size={20} className='text-background' />
             </motion.button>
             <motion.div
               className='flex flex-col lg:flex-row gap-8 text-foreground text-3xl font-semibold w-full justify-center items-center text-center'

@@ -6,19 +6,20 @@ import {
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
+import { cn } from '@/lib/utils';
 import Autoplay from 'embla-carousel-autoplay';
 import Fade from 'embla-carousel-fade';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { MoveUpRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Cinzel_Decorative } from 'next/font/google';
-import { cn } from '@/lib/utils';
-import { MoveUpRight } from 'lucide-react';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { Blurhash } from 'react-blurhash';
 
 const Cin = Cinzel_Decorative({
   variable: '--font-sans',
   subsets: ['latin'],
-  weight: ['400', '700', '900'],
+  weight: ['400'],
 });
 
 const textVariants = {
@@ -47,7 +48,7 @@ const HeroBanner = () => {
           <h1
             className={cn(
               Cin.className,
-              'text-4xl md:text-6xl font-semibold tracking-tight leading-tight'
+              'text-4xl md:text-6xl tracking-tight leading-tight'
             )}
           >
             Ragooty Sasidharan
@@ -74,21 +75,37 @@ const HeroBanner = () => {
       >
         <Carousel plugins={[Autoplay({ delay: 3000 }), Fade()]}>
           <CarouselContent>
-            {images.map((image) => (
-              <CarouselItem key={image.id} className='w-full'>
+            {images.length > 0 &&
+              images.map((image) => (
+                <CarouselItem key={image.id} className='w-full'>
+                  <div className='relative w-full aspect-square overflow-hidden'>
+                    <Image
+                      src={image.url}
+                      alt='Photography work'
+                      fill
+                      className='object-cover'
+                      sizes='100vw'
+                    />
+                    <div className='absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-transparent to-background pointer-events-none'></div>
+                  </div>
+                </CarouselItem>
+              ))}
+            {images.length === 0 && (
+              <CarouselItem className='w-full'>
                 <div className='relative w-full aspect-square overflow-hidden'>
-                  <Image
-                    src={image.url}
-                    alt='Photography work'
-                    fill
-                    className='object-cover'
-                    sizes='100vw'
-                    priority
+                  <Blurhash
+                    hash={'UOJRdVxu_3ay~qj[ayRjRjRjIUofxuM{M{xu'}
+                    width='100%'
+                    height='100%'
+                    punch={1}
+                    resolutionX={32}
+                    resolutionY={32}
+                    style={{ position: 'absolute', top: 0, left: 0 }}
                   />
                   <div className='absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-transparent to-background pointer-events-none'></div>
                 </div>
               </CarouselItem>
-            ))}
+            )}
           </CarouselContent>
         </Carousel>
       </motion.div>
