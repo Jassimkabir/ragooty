@@ -2,7 +2,7 @@
 
 import { ImageWithCategory, listImagesWithCategories } from '@/api/images';
 import { cn } from '@/lib/utils';
-import { MoveUpRight } from 'lucide-react';
+import { MoveRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Fira_Sans_Extra_Condensed } from 'next/font/google';
 import Link from 'next/link';
@@ -69,7 +69,6 @@ const PeekGallery = () => {
                   src={image?.url}
                   alt=''
                   variants={imageVariants}
-                  whileHover={{ scale: 1.05 }}
                   className='h-56 w-auto rounded-lg object-contain transition-shadow shadow-md hover:shadow-lg'
                 />
               ))}
@@ -81,7 +80,6 @@ const PeekGallery = () => {
                   src={image?.url}
                   alt=''
                   variants={imageVariants}
-                  whileHover={{ scale: 1.05 }}
                   className='h-56 w-auto rounded-lg object-contain transition-shadow shadow-md hover:shadow-lg'
                 />
               ))}
@@ -100,7 +98,7 @@ const PeekGallery = () => {
               whileHover={{ x: 4 }}
             >
               View Gallery
-              <MoveUpRight className='w-4 h-4' />
+              <MoveRight className='w-4 h-4' />
             </motion.p>
           </Link>
         </motion.div>

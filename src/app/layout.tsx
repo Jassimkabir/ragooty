@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/user/navbar';
+import Footer from '@/components/user/footer';
 
 const poppins = Poppins({
   variable: '--font-sans',
@@ -34,6 +35,7 @@ export default function RootLayout({
         >
           <Navbar />
           {children}
+          <Footer />
           <Toaster />
         </ThemeProvider>
       </body>

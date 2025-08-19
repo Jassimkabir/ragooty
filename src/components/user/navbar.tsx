@@ -1,13 +1,12 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, Variants } from 'motion/react';
-import { MenuIcon, MoveUpRight, XIcon } from 'lucide-react';
+import { MenuIcon, MoveUpRight, UserRoundPen, XIcon } from 'lucide-react';
 import { Cinzel_Decorative, Fira_Sans_Condensed } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ThemeToggle } from '../admin/theme-toggle';
-import { MorphingText } from '../magicui/morphing-text';
 
 const Cin = Cinzel_Decorative({
   variable: '--font-sans',
@@ -81,19 +80,32 @@ const Navbar = () => {
       return;
     }
 
-    const handleScroll = () => {
+    const updateScrolled = () => {
       setScrolled(window.scrollY > 300);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    updateScrolled();
+
+    window.addEventListener('scroll', updateScrolled);
+    return () => window.removeEventListener('scroll', updateScrolled);
   }, [pathname]);
 
   return (
     <header className={cn('py-6 px-4 md:px-6 fixed top-0 left-0 right-0 z-50')}>
       <div className='absolute inset-0 pointer-events-none bg-gradient-to-b from-background/70 to-transparent z-[-1]' />
       <div className='flex justify-between items-center'>
-        <div style={{ minHeight: '1.75rem' }}></div>
+        <div className='md:w-[124px]'>
+          <button
+            onClick={() => setOpen((o) => !o)}
+            aria-label='Toggle menu'
+            className='rounded-full bg-foreground backdrop-blur-xl p-3'
+          >
+            <MenuIcon
+              size={20}
+              className={cn(open ? 'invisible' : '', 'text-background')}
+            />
+          </button>
+        </div>
         <AnimatePresence>
           {scrolled && (
             <Link href={'/'}>
@@ -109,16 +121,11 @@ const Navbar = () => {
             </Link>
           )}
         </AnimatePresence>
-        <button
-          onClick={() => setOpen((o) => !o)}
-          aria-label='Toggle menu'
-          className='rounded-full bg-foreground/40 backdrop-blur-xl p-3'
-        >
-          <MenuIcon
-            size={20}
-            className={cn(open ? 'invisible' : '', 'text-background')}
-          />
-        </button>
+        <Link href={'/contact'} className='invisible md:visible'>
+          <div className='rounded-full bg-foreground backdrop-blur-xl p-3 text-background hidden md:block'>
+            Get In Touch
+          </div>
+        </Link>
       </div>
       <AnimatePresence>
         {open && (
@@ -131,13 +138,19 @@ const Navbar = () => {
           >
             <motion.button
               onClick={() => setOpen(false)}
-              className='absolute top-6 right-4 md:right-6 rounded-full bg-foreground/40 backdrop-blur-xl p-3'
+              className='absolute top-[26px] left-4 md:left-6 rounded-full bg-foreground backdrop-blur-xl p-3'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { duration: 0.2 } }}
             >
               <XIcon size={20} className='text-background' />
             </motion.button>
+            <Link
+              href={'/contact'}
+              className='rounded-full absolute top-6 right-4 md:right-6 bg-foreground backdrop-blur-xl p-3 text-background'
+            >
+              Get In Touch
+            </Link>
             <motion.div
               className='flex flex-col lg:flex-row gap-8 text-foreground text-3xl font-semibold w-full justify-center items-center text-center'
               variants={listVariants}
