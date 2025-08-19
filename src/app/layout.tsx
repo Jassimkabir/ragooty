@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className={cn(poppins.className, '')}>
+      <body className={cn(poppins.className, 'min-h-screen flex flex-col')}>
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'
@@ -34,7 +34,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          {children}
+          <main className='flex-1'>{children}</main>
           <Footer />
           <Toaster />
         </ThemeProvider>
