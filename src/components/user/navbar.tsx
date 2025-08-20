@@ -28,8 +28,11 @@ const links = [
 
 const socialLinks = [
   { title: 'Instagram', href: 'https://www.instagram.com/ragooty_sasidharan/' },
-  { title: 'Facebook', href: 'https://www.facebook.com/r4rag.in/' },
-  { title: 'Behance', href: '/about' },
+  {
+    title: 'Facebook',
+    href: 'https://www.facebook.com/profile.php?id=100008807614921&mibextid=LQQJ4d',
+  },
+  { title: 'Behance', href: 'https://www.behance.net/ragootys' },
 ];
 
 const modalVariants: Variants = {
