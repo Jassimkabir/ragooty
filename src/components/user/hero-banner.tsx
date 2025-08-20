@@ -10,8 +10,8 @@ import { cn } from '@/lib/utils';
 import Autoplay from 'embla-carousel-autoplay';
 import Fade from 'embla-carousel-fade';
 import { MoveUpRight, ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Cinzel_Decorative } from 'next/font/google';
+import { motion, AnimatePresence, Variants } from 'motion/react';
+import { Cinzel_Decorative, Fira_Sans_Condensed } from 'next/font/google';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Blurhash } from 'react-blurhash';
@@ -22,9 +22,24 @@ const Cin = Cinzel_Decorative({
   weight: ['400'],
 });
 
+const Fira = Fira_Sans_Condensed({
+  variable: '--font-sans',
+  subsets: ['latin'],
+  weight: ['300', '400', '700'],
+});
+
 const textVariants = {
   hidden: { opacity: 0, x: -30 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.8 } },
+};
+
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut' },
+  },
 };
 
 const HeroBanner = () => {
@@ -59,22 +74,21 @@ const HeroBanner = () => {
           <h1
             className={cn(
               Cin.className,
-              'text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight leading-tight py-10'
+              'text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight leading-tight pt-10 pb-5'
             )}
           >
             Ragooty Sasidharan
           </h1>
-          {/* <p className='text-lg md:text-xl max-w-xl text-gray-300'>
-            Chasing light, skin and Life...
-          </p>
-          <motion.a
-            href='#gallery'
-            className='flex gap-2 items-center mt-2 text-white hover:underline'
-            whileHover={{ x: 4 }}
+          <motion.p
+            variants={fadeInUp}
+            className={cn(
+              Fira.className,
+              'text-lg md:text-xl text-muted-foreground max-w-3xl'
+            )}
           >
-            Get In Touch
-            <MoveUpRight className='w-4 h-4' />
-          </motion.a> */}
+            Chasing light, capturing moments, and telling stories through the
+            lens of creativity
+          </motion.p>
         </motion.div>
       </motion.div>
 

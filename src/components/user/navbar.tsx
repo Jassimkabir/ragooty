@@ -149,6 +149,7 @@ const Navbar = () => {
             </motion.button>
             <Link
               href={'/contact'}
+              onClick={() => setOpen(false)}
               className='rounded-full absolute top-6 right-4 md:right-6 bg-foreground backdrop-blur-xl p-3 text-background'
             >
               Contact
