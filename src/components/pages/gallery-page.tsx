@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { Fira_Sans_Extra_Condensed } from 'next/font/google';
 import { useEffect, useMemo, useState } from 'react';
 import { BlurFade } from '../magicui/blur-fade';
+import { ImageModal } from '../ui/image-modal';
 
 const Fira = Fira_Sans_Extra_Condensed({
   variable: '--font-sans',
@@ -17,6 +18,8 @@ export default function GalleryPage() {
   const [images, setImages] = useState<ImageWithCategory[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const getImages = async () => {
     const data = await listImagesWithCategories();
@@ -45,6 +48,28 @@ export default function GalleryPage() {
       img.image_categories.some((ic) => ic.category?.id === activeCategory)
     );
   }, [images, activeCategory]);
+
+  const handleImageClick = (index: number) => {
+    setCurrentImageIndex(index);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleNext = () => {
+    setCurrentImageIndex((prev) =>
+      prev === filteredImages.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const handlePrev = () => {
+    setCurrentImageIndex((prev) =>
+      prev === 0 ? filteredImages.length - 1 : prev - 1
+    );
+  };
+
   return (
     <div className='container mx-auto px-4 py-4 mt-24 flex flex-col items-center gap-6'>
       <div
@@ -83,11 +108,21 @@ export default function GalleryPage() {
             <img
               src={image?.url}
               alt=''
-              className='mb-4 size-full rounded-lg object-contain'
+              className='mb-4 size-full rounded-lg object-contain cursor-pointer hover:opacity-90 transition-opacity'
+              onClick={() => handleImageClick(idx)}
             />
           </BlurFade>
         ))}
       </div>
+
+      <ImageModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        currentImageIndex={currentImageIndex}
+        images={filteredImages}
+        onNext={handleNext}
+        onPrev={handlePrev}
+      />
     </div>
   );
 }
