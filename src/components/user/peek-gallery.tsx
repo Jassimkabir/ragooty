@@ -62,7 +62,7 @@ const PeekGallery = () => {
       <div className='container mx-auto px-4 my-10 flex flex-col gap-6 items-center justify-center'>
         <div className='md:w-1/2 w-full'>
           <div className='relative flex w-full flex-col items-center justify-center gap-4 overflow-hidden'>
-            <Marquee pauseOnHover className='[--duration:20s]'>
+            <Marquee pauseOnHover className='[--duration:90s]'>
               {firstRow.map((image) => (
                 <motion.img
                   key={image.url}
@@ -73,7 +73,7 @@ const PeekGallery = () => {
                 />
               ))}
             </Marquee>
-            <Marquee reverse pauseOnHover className='[--duration:20s]'>
+            <Marquee reverse pauseOnHover className='[--duration:90s]'>
               {secondRow.map((image) => (
                 <motion.img
                   key={image.url}

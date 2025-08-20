@@ -46,7 +46,7 @@ export default function GalleryPage() {
     );
   }, [images, activeCategory]);
   return (
-    <div className='container mx-auto px-4 py-4 mt-[76px] flex flex-col items-center gap-6'>
+    <div className='container mx-auto px-4 py-4 mt-24 flex flex-col items-center gap-6'>
       <div
         className={cn(
           'flex flex-wrap items-center gap-4 justify-center',

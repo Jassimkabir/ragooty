@@ -24,7 +24,6 @@ const links = [
   { title: 'Home', href: '/' },
   { title: 'Gallery', href: '/gallery' },
   { title: 'About', href: '/about' },
-  { title: 'Contact', href: '/contact' },
 ];
 
 const socialLinks = [
@@ -123,7 +122,7 @@ const Navbar = () => {
         </AnimatePresence>
         <Link href={'/contact'} className='invisible md:visible'>
           <div className='rounded-full bg-foreground backdrop-blur-xl p-3 text-background hidden md:block'>
-            Get In Touch
+            Contact
           </div>
         </Link>
       </div>
@@ -149,7 +148,7 @@ const Navbar = () => {
               href={'/contact'}
               className='rounded-full absolute top-6 right-4 md:right-6 bg-foreground backdrop-blur-xl p-3 text-background'
             >
-              Get In Touch
+              Contact
             </Link>
             <motion.div
               className='flex flex-col lg:flex-row gap-8 text-foreground text-3xl font-semibold w-full justify-center items-center text-center'
