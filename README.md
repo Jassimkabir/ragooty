@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ragooty Photography Portfolio
 
-## Getting Started
+A modern, responsive photography portfolio website built with Next.js 15, showcasing the work of Ragooty Sasidharan. This project features a beautiful gallery, smooth animations, and a comprehensive admin system for managing photography content.
 
-First, run the development server:
+## ✨ Features
+
+- **Responsive Design**: Optimized for all devices with a mobile-first approach
+- **Image Gallery**: Dynamic gallery with category filtering and blurhash loading
+- **Smooth Animations**: Framer Motion powered animations for enhanced UX
+- **Admin Dashboard**: Complete content management system
+- **Contact Form**: Interactive contact page with form validation
+- **SEO Optimized**: Built-in SEO components and meta tags
+- **Dark/Light Mode**: Theme switching capability
+- **Image Optimization**: Next.js Image component with blurhash placeholders
+- **Carousel**: Auto-playing hero carousel with fade transitions
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4
+- **UI Components**: Radix UI + shadcn/ui
+- **Animations**: Framer Motion
+- **Database**: Supabase
+- **Forms**: React Hook Form + Zod validation
+- **Icons**: Lucide React
+- **Fonts**: Google Fonts (Cinzel Decorative, Fira Sans Condensed)
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ or Bun
+- Supabase account (for database)
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd ragooty
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+bun install
+```
+
+3. Set up environment variables:
+   Create a `.env.local` file in the root directory:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+```
+
+4. Run the development server:
 
 ```bash
 npm run dev
 # or
-yarn dev
-# or
-pnpm dev
-# or
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                 # Next.js App Router pages
+│   ├── about/          # About page
+│   ├── admin/          # Admin dashboard
+│   ├── contact/        # Contact page
+│   ├── gallery/        # Gallery page
+│   └── layout.tsx      # Root layout
+├── components/         # React components
+│   ├── admin/          # Admin-specific components
+│   ├── pages/          # Page components
+│   ├── ui/             # Reusable UI components
+│   └── user/           # User-facing components
+├── lib/                # Utility functions
+├── hooks/              # Custom React hooks
+└── api/                # API functions
+```
 
-## Learn More
+## 🎨 Key Components
 
-To learn more about Next.js, take a look at the following resources:
+- **HeroBanner**: Animated hero section with auto-playing carousel
+- **PeekGallery**: Preview gallery with category filtering
+- **Navbar**: Responsive navigation with theme toggle
+- **Footer**: Site footer with social links
+- **Admin Dashboard**: Content management interface
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔧 Available Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `npm run dev` - Start development server with Turbopack
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-## Deploy on Vercel
+## 📸 Gallery Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Category-based image filtering
+- Blurhash loading placeholders
+- Responsive grid layout
+- Image optimization with Next.js
+- HEIC image support
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎯 Admin Features
+
+- Image upload and management
+- Category management
+- Content editing
+- User authentication
+
+## 🌐 Deployment
+
+The easiest way to deploy this Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
+
+For other deployment options, check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying).
+
+## 📝 License
+
+This project is private and proprietary.
+
+## 🤝 Contributing
+
+This is a private project. For any questions or support, please contact the project owner.
