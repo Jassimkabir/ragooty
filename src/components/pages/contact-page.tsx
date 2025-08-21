@@ -415,28 +415,23 @@ const ContactPage = () => {
             </p>
             <div className='flex flex-col sm:flex-row gap-4 justify-center'>
               <Button
-                onClick={() => form.handleSubmit(onSubmit)()}
                 className={cn(
                   Fira.className,
                   'bg-primary text-primary-foreground px-8 py-3 rounded-full',
                   'hover:bg-primary/90 transition-colors font-medium'
                 )}
+                onClick={() => {
+                  const message = encodeURIComponent(
+                    "Hi! I'm interested in your photography services. Could you please provide more information about your packages and availability?"
+                  );
+                  window.open(
+                    `https://wa.me/918075255527?text=${message}`,
+                    '_blank'
+                  );
+                }}
               >
                 <Send className='w-4 h-4 mr-2' />
-                Send Message
-              </Button>
-              <Button
-                variant='outline'
-                className={cn(
-                  Fira.className,
-                  'border-primary/20 text-primary px-8 py-3 rounded-full',
-                  'hover:bg-primary/10 transition-colors font-medium'
-                )}
-                onClick={() =>
-                  window.open('https://wa.me/918075255527', '_blank')
-                }
-              >
-                WhatsApp
+                Send Message On WhatsApp
               </Button>
             </div>
           </div>
