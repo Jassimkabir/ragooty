@@ -66,18 +66,6 @@ const ListImages = ({ images, setImages }: ListImagesProps) => {
     setViewerOpen(true);
   };
 
-  // if (loading) {
-  //   return (
-  //     <div className='columns-2 gap-4 sm:columns-3'>
-  //       {[...Array(4)].map((_, idx) => (
-  //         <BlurFade key={idx} delay={0.25 + idx * 0.05} inView>
-  //           <Skeleton key={idx} className='mb-4 h-48 w-full rounded-lg' />
-  //         </BlurFade>
-  //       ))}
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className='columns-2 gap-4 sm:columns-3'>
       {images.map((image, idx) => (

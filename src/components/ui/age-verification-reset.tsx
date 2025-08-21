@@ -80,7 +80,6 @@ export default function AgeVerificationReset() {
             animate='visible'
             exit='exit'
           >
-            {/* Backdrop */}
             <motion.div
               className='absolute inset-0 bg-background/80 backdrop-blur-lg'
               initial={{ opacity: 0 }}
@@ -89,7 +88,6 @@ export default function AgeVerificationReset() {
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Content */}
             <motion.div
               className='relative w-full max-w-sm'
               variants={contentVariants}
@@ -98,7 +96,6 @@ export default function AgeVerificationReset() {
               exit='exit'
             >
               <div className='rounded-lg border bg-card/50 backdrop-blur-xl p-6 shadow-2xl'>
-                {/* Header */}
                 <div className='text-center mb-4'>
                   <div className='flex justify-center mb-3'>
                     <div className='rounded-full bg-muted/50 p-2'>
@@ -118,7 +115,6 @@ export default function AgeVerificationReset() {
                   </p>
                 </div>
 
-                {/* Description */}
                 <div className='mb-4 p-4 rounded-lg bg-muted/30 border border-border/50'>
                   <p
                     className={cn(
@@ -131,7 +127,6 @@ export default function AgeVerificationReset() {
                   </p>
                 </div>
 
-                {/* Buttons */}
                 <div className='flex gap-3'>
                   <Button
                     onClick={handleReset}

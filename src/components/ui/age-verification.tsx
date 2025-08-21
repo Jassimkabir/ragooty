@@ -118,7 +118,6 @@ export default function AgeVerification({
           animate='visible'
           exit='exit'
         >
-          {/* Backdrop */}
           <motion.div
             className='absolute inset-0 bg-background/80 backdrop-blur-lg'
             initial={{ opacity: 0 }}
@@ -126,7 +125,6 @@ export default function AgeVerification({
             exit={{ opacity: 0 }}
           />
 
-          {/* Content */}
           <motion.div
             className='relative w-full max-w-md'
             variants={contentVariants}
@@ -135,7 +133,6 @@ export default function AgeVerification({
             exit='exit'
           >
             <div className='rounded-lg border bg-card/50 backdrop-blur-xl p-8 shadow-2xl'>
-              {/* Header */}
               <motion.div
                 className='text-center mb-4'
                 variants={itemVariants}
@@ -161,7 +158,6 @@ export default function AgeVerification({
                 </p>
               </motion.div>
 
-              {/* Warning */}
               <motion.div
                 className='mb-4 p-4 rounded-lg bg-muted/30 border border-border/50'
                 variants={itemVariants}
@@ -191,7 +187,6 @@ export default function AgeVerification({
                 </div>
               </motion.div>
 
-              {/* Age Requirement */}
               <motion.div
                 className='mb-4 p-4 rounded-lg bg-muted/30 border border-border/50'
                 variants={itemVariants}
@@ -221,7 +216,6 @@ export default function AgeVerification({
                 </div>
               </motion.div>
 
-              {/* Buttons */}
               <motion.div
                 className='flex flex-col gap-3'
                 variants={buttonVariants}

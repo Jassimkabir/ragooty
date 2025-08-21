@@ -7,7 +7,6 @@ export const generateBlurhash = (imageFile: File): Promise<string> => {
     const ctx = canvas.getContext('2d');
 
     img.onload = () => {
-      // Resize canvas for blurhash (smaller is faster)
       const maxSize = 64;
       const ratio = Math.min(maxSize / img.width, maxSize / img.height);
       canvas.width = Math.floor(img.width * ratio);
@@ -50,7 +49,7 @@ export const formatFileSize = (bytes: number): string => {
 
 export const isValidImageFile = (file: File): boolean => {
   const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-  const maxSize = 8 * 1024 * 1024; // 8MB
+  const maxSize = 8 * 1024 * 1024;
   return validTypes.includes(file.type) && file.size <= maxSize;
 };
 

@@ -28,7 +28,6 @@ export default function AgeGateWrapper({ children }: AgeGateWrapperProps) {
   useEffect(() => {
     setIsClient(true);
 
-    // Check if user has already verified their age
     const verified = localStorage.getItem('age-verified');
     if (verified === 'true') {
       setIsAgeVerified(true);
@@ -37,19 +36,15 @@ export default function AgeGateWrapper({ children }: AgeGateWrapperProps) {
     }
   }, []);
 
-  // Disable scrolling when age verification is shown
   useEffect(() => {
     if (showAgeVerification) {
-      // Save current scroll position
       const scrollY = window.scrollY;
 
-      // Disable scrolling
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollY}px`;
       document.body.style.width = '100%';
 
-      // Cleanup function to re-enable scrolling
       return () => {
         document.body.style.overflow = '';
         document.body.style.position = '';
@@ -65,14 +60,12 @@ export default function AgeGateWrapper({ children }: AgeGateWrapperProps) {
     setShowAgeVerification(false);
   };
 
-  // Don't render anything until we're on the client side
   if (!isClient) {
     return null;
   }
 
   return (
     <>
-      {/* Always render the children content with smooth blur transition */}
       <motion.div
         className='transition-all duration-500 ease-in-out'
         style={{
@@ -83,7 +76,6 @@ export default function AgeGateWrapper({ children }: AgeGateWrapperProps) {
         {children}
       </motion.div>
 
-      {/* Show age verification if not verified */}
       <AgeVerification
         isOpen={showAgeVerification}
         onVerified={handleAgeVerified}
