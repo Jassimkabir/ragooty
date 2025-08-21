@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { motion, AnimatePresence, Variants } from 'motion/react';
-import { Cinzel_Decorative, Fira_Sans_Condensed } from 'next/font/google';
 import { cn } from '@/lib/utils';
-import { Shield, AlertTriangle, Calendar, Check, X } from 'lucide-react';
+import { Calendar, Camera, Eye, EyeOff, Info } from 'lucide-react';
+import { AnimatePresence, motion, Variants } from 'motion/react';
+import { Cinzel_Decorative, Fira_Sans_Condensed } from 'next/font/google';
+import { useEffect, useState } from 'react';
 
 const Cin = Cinzel_Decorative({
   variable: '--font-sans',
@@ -145,11 +145,11 @@ export default function AgeVerification({
               >
                 <div className='flex justify-center mb-4'>
                   <div className='rounded-full bg-muted/50 p-3'>
-                    <Shield className='h-8 w-8 text-foreground' />
+                    <Camera className='h-8 w-8 text-foreground' />
                   </div>
                 </div>
                 <h2 className={cn(Fira.className, 'text-2xl font-bold mb-2')}>
-                  Age Verification
+                  Content Notice
                 </h2>
                 <p
                   className={cn(
@@ -157,7 +157,7 @@ export default function AgeVerification({
                     'text-muted-foreground text-sm'
                   )}
                 >
-                  Please confirm your age to continue
+                  Photography portfolio with mature themes
                 </p>
               </motion.div>
 
@@ -170,12 +170,12 @@ export default function AgeVerification({
                 exit='exit'
               >
                 <div className='flex items-start gap-3'>
-                  <AlertTriangle className='h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0' />
+                  <Info className='h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0' />
                   <div>
                     <p
                       className={cn(Fira.className, 'text-sm font-medium mb-1')}
                     >
-                      Content Warning
+                      Artistic Content
                     </p>
                     <p
                       className={cn(
@@ -183,8 +183,9 @@ export default function AgeVerification({
                         'text-xs text-muted-foreground'
                       )}
                     >
-                      This website contains content that may not be suitable for
-                      individuals under 18 years of age.
+                      This photography portfolio includes artistic nude,
+                      fashion, and portrait work that may contain explicit
+                      content suitable for mature audiences only.
                     </p>
                   </div>
                 </div>
@@ -204,7 +205,7 @@ export default function AgeVerification({
                     <p
                       className={cn(Fira.className, 'text-sm font-medium mb-1')}
                     >
-                      Age Requirement
+                      Age Confirmation
                     </p>
                     <p
                       className={cn(
@@ -212,8 +213,9 @@ export default function AgeVerification({
                         'text-xs text-muted-foreground'
                       )}
                     >
-                      You must be 18 or older to view this content. By
-                      proceeding, you confirm that you meet this requirement.
+                      You must be 18 or older to view this photography
+                      collection. Please confirm your age to continue browsing
+                      the gallery.
                     </p>
                   </div>
                 </div>
@@ -234,7 +236,8 @@ export default function AgeVerification({
                     'w-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200'
                   )}
                 >
-                  <Check className='h-4 w-4' />I am 18 or older
+                  <Eye className='h-4 w-4 mr-2' />
+                  View Site
                 </Button>
                 <Button
                   onClick={handleDecline}
@@ -244,7 +247,8 @@ export default function AgeVerification({
                     'w-full border-border/50 hover:bg-muted/50 transition-all duration-200'
                   )}
                 >
-                  <X className='h-4 w-4' />I am under 18
+                  <EyeOff className='h-4 w-4 mr-2' />
+                  Leave Site
                 </Button>
               </motion.div>
             </div>

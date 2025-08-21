@@ -9,8 +9,7 @@ import {
 import { cn } from '@/lib/utils';
 import Autoplay from 'embla-carousel-autoplay';
 import Fade from 'embla-carousel-fade';
-import { MoveUpRight, ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence, Variants } from 'motion/react';
+import { AnimatePresence, motion, Variants } from 'motion/react';
 import { Cinzel_Decorative, Fira_Sans_Condensed } from 'next/font/google';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -121,10 +120,10 @@ const HeroBanner = () => {
               <CarouselItem className='w-full'>
                 <div className='relative w-full md:h-[100dvh] max-[568px]:h-[calc(100dvh-388px)] h-[calc(100dvh-300px)] overflow-hidden'>
                   <Blurhash
-                    hash={'UOJRdVxu_3ay~qj[ayRjRjRjIUofxuM{M{xu'}
+                    hash={'U58;V?D%M{M{M{M{WBt700ofM{-;~q%MRjRj'}
                     width='100%'
                     height='100%'
-                    punch={1}
+                    punch={0}
                     resolutionX={32}
                     resolutionY={32}
                     style={{ position: 'absolute', top: 0, left: 0 }}

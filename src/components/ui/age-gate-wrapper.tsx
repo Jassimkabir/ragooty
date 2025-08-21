@@ -37,6 +37,29 @@ export default function AgeGateWrapper({ children }: AgeGateWrapperProps) {
     }
   }, []);
 
+  // Disable scrolling when age verification is shown
+  useEffect(() => {
+    if (showAgeVerification) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+
+      // Disable scrolling
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+
+      // Cleanup function to re-enable scrolling
+      return () => {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [showAgeVerification]);
+
   const handleAgeVerified = () => {
     setIsAgeVerified(true);
     setShowAgeVerification(false);
@@ -49,25 +72,22 @@ export default function AgeGateWrapper({ children }: AgeGateWrapperProps) {
 
   return (
     <>
+      {/* Always render the children content with smooth blur transition */}
+      <motion.div
+        className='transition-all duration-500 ease-in-out'
+        style={{
+          filter: showAgeVerification ? 'blur(16px)' : 'blur(0px)',
+          pointerEvents: showAgeVerification ? 'none' : 'auto',
+        }}
+      >
+        {children}
+      </motion.div>
+
       {/* Show age verification if not verified */}
       <AgeVerification
         isOpen={showAgeVerification}
         onVerified={handleAgeVerified}
       />
-
-      {/* Show the actual content if age is verified */}
-      <AnimatePresence>
-        {isAgeVerified && (
-          <motion.div
-            variants={fadeInVariants}
-            initial='hidden'
-            animate='visible'
-            exit='exit'
-          >
-            {children}
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 }
