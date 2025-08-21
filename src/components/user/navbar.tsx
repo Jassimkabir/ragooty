@@ -100,7 +100,7 @@ const Navbar = () => {
           <button
             onClick={() => setOpen((o) => !o)}
             aria-label='Toggle menu'
-            className='rounded-full bg-foreground backdrop-blur-xl p-3'
+            className='rounded-full bg-foreground/50  backdrop-blur-xl p-3'
           >
             <MenuIcon
               size={20}
@@ -127,7 +127,7 @@ const Navbar = () => {
           <div
             className={cn(
               Fira.className,
-              'rounded-full bg-foreground backdrop-blur-xl p-3 text-background hidden md:block'
+              'rounded-full bg-foreground/50  backdrop-blur-xl p-3 text-background hidden md:block'
             )}
           >
             Contact
@@ -145,7 +145,7 @@ const Navbar = () => {
           >
             <motion.button
               onClick={() => setOpen(false)}
-              className='absolute top-[26px] left-4 md:left-6 rounded-full bg-foreground backdrop-blur-xl p-3'
+              className='absolute top-[26px] left-4 md:left-6 rounded-full bg-foreground/50 backdrop-blur-xl p-3'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { duration: 0.2 } }}
@@ -155,7 +155,10 @@ const Navbar = () => {
             <Link
               href={'/contact'}
               onClick={() => setOpen(false)}
-              className='rounded-full absolute top-6 right-4 md:right-6 bg-foreground backdrop-blur-xl p-3 text-background'
+              className={cn(
+                Fira.className,
+                'rounded-full absolute top-6 right-4 md:right-6 bg-foreground/50 backdrop-blur-xl p-3 text-background'
+              )}
             >
               Contact
             </Link>

@@ -33,17 +33,6 @@ const footer = () => {
         <div className='absolute inset-0 bg-gradient-to-b from-background to-transparent' />
       </div>
       <div className='relative z-20 flex flex-col gap-6 md:gap-8 lg:gap-10 items-center justify-center px-4 text-center'>
-        <div>
-          <Link
-            href='mailto:ragootysasidharan@gmail.com'
-            className={cn(
-              Fira.className,
-              'text-2xl sm:text-3xl lg:text-4xl font-bold hover:underline'
-            )}
-          >
-            ragootysasidharan@gmail.com
-          </Link>
-        </div>
         <div className='text-center'>
           <Link href={'/'}>
             <div

@@ -63,7 +63,7 @@ const HeroBanner = () => {
   }, []);
 
   return (
-    <section className='w-full flex flex-col md:flex-row md:mt-0 mt-24 items-center justify-between relative'>
+    <section className='w-full min-h-screen h-screen flex flex-col md:flex-row md:mt-0 mt-24 items-center md:justify-between relative'>
       <motion.div className='md:w-1/2 w-full flex items-center container mx-auto md:px-6 px-4'>
         <motion.div
           initial='hidden'
@@ -102,7 +102,7 @@ const HeroBanner = () => {
             {images.length > 0 &&
               images.map((image) => (
                 <CarouselItem key={image.id} className='w-full'>
-                  <div className='relative w-full aspect-square overflow-hidden'>
+                  <div className='relative w-full md:h-screen max-[568px]:h-[calc(100vh-388px)] h-[calc(100vh-300px)] overflow-hidden'>
                     <Image
                       src={image.url}
                       alt='Photography work'
@@ -110,13 +110,13 @@ const HeroBanner = () => {
                       className='object-cover'
                       sizes='100vw'
                     />
-                    <div className='absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-transparent to-background pointer-events-none'></div>
+                    <div className='absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-background via-background/0 to-background md:from-transparent md:to-background pointer-events-none'></div>
                   </div>
                 </CarouselItem>
               ))}
             {images.length === 0 && (
               <CarouselItem className='w-full'>
-                <div className='relative w-full aspect-square overflow-hidden'>
+                <div className='relative w-full md:h-screen max-[568px]:h-[calc(100vh-388px)] h-[calc(100vh-300px)] overflow-hidden'>
                   <Blurhash
                     hash={'UOJRdVxu_3ay~qj[ayRjRjRjIUofxuM{M{xu'}
                     width='100%'
@@ -126,7 +126,7 @@ const HeroBanner = () => {
                     resolutionY={32}
                     style={{ position: 'absolute', top: 0, left: 0 }}
                   />
-                  <div className='absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-transparent to-background pointer-events-none'></div>
+                  <div className='absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-background via-background/0 to-background md:from-transparent md:to-background pointer-events-none'></div>
                 </div>
               </CarouselItem>
             )}
@@ -136,7 +136,7 @@ const HeroBanner = () => {
       <AnimatePresence>
         {showScrollIndicator && (
           <motion.div
-            className='absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10'
+            className='absolute md:bottom-8 bottom-32 left-1/2 transform -translate-x-1/2 z-10'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
@@ -144,7 +144,7 @@ const HeroBanner = () => {
           >
             <motion.div
               className='flex flex-col items-center gap-2 text-white/70 hover:text-white/90 cursor-pointer transition-colors'
-              animate={{ y: [0, 8, 0] }}
+              animate={{ opacity: [0.7, 1, 0.7] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
               onClick={() => {
                 window.scrollTo({
@@ -153,10 +153,9 @@ const HeroBanner = () => {
                 });
               }}
             >
-              <div className='relative'>
-                <ChevronDown className='w-6 h-6 text-white/60 absolute -top-2 left-0' />
-                <ChevronDown className='w-6 h-6 text-white relative z-10' />
-              </div>
+              <span className={cn(Fira.className, 'text-sm font-medium')}>
+                scroll to explore
+              </span>
             </motion.div>
           </motion.div>
         )}
