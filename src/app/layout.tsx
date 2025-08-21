@@ -6,6 +6,7 @@ import { Poppins } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/user/navbar';
 import Footer from '@/components/user/footer';
+import AgeGateWrapper from '@/components/ui/age-gate-wrapper';
 
 const poppins = Poppins({
   variable: '--font-sans',
@@ -33,10 +34,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <main className='flex-1'>{children}</main>
-          <Footer />
-          <Toaster />
+          <AgeGateWrapper>
+            <Navbar />
+            <main className='flex-1'>{children}</main>
+            <Footer />
+            <Toaster />
+          </AgeGateWrapper>
         </ThemeProvider>
       </body>
     </html>
