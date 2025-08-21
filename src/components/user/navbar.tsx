@@ -124,7 +124,7 @@ const Navbar = () => {
           <div
             className={cn(
               Fira.className,
-              'rounded-full bg-foreground/10 backdrop-blur-xl p-3 text-foreground hover:bg-foreground/20 transition-colors'
+              'rounded-full bg-foreground/10 backdrop-blur-xl p-3 text-foreground hover:bg-foreground/20 transition-colors hidden md:block'
             )}
           >
             Contact
