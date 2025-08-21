@@ -63,7 +63,7 @@ const HeroBanner = () => {
   }, []);
 
   return (
-    <section className='w-full min-h-screen h-screen flex flex-col md:flex-row md:mt-0 mt-24 items-center md:justify-between relative'>
+    <section className='w-full min-h-[100dvh] h-[100dvh] flex flex-col md:flex-row md:mt-0 mt-24 items-center md:justify-between relative'>
       <motion.div className='md:w-1/2 w-full flex items-center container mx-auto md:px-6 px-4'>
         <motion.div
           initial='hidden'
@@ -102,7 +102,7 @@ const HeroBanner = () => {
             {images.length > 0 &&
               images.map((image) => (
                 <CarouselItem key={image.id} className='w-full'>
-                  <div className='relative w-full md:h-screen max-[568px]:h-[calc(100vh-388px)] h-[calc(100vh-300px)] overflow-hidden'>
+                  <div className='relative w-full md:h-[100dvh] max-[568px]:h-[calc(100dvh-388px)] h-[calc(100dvh-300px)] overflow-hidden'>
                     <Image
                       src={image.url}
                       alt='Photography work'
@@ -116,7 +116,7 @@ const HeroBanner = () => {
               ))}
             {images.length === 0 && (
               <CarouselItem className='w-full'>
-                <div className='relative w-full md:h-screen max-[568px]:h-[calc(100vh-388px)] h-[calc(100vh-300px)] overflow-hidden'>
+                <div className='relative w-full md:h-[100dvh] max-[568px]:h-[calc(100dvh-388px)] h-[calc(100dvh-300px)] overflow-hidden'>
                   <Blurhash
                     hash={'UOJRdVxu_3ay~qj[ayRjRjRjIUofxuM{M{xu'}
                     width='100%'

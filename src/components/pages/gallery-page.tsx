@@ -81,7 +81,7 @@ export default function GalleryPage() {
         <button
           onClick={() => setActiveCategory(null)}
           className={cn(
-            'px-3 py-1 rounded-full transition-colors',
+            'px-3 py-1 rounded-full transition-colors hover:text-foreground duration-300 cursor-pointer',
             !activeCategory ? 'text-foreground' : 'text-foreground/30'
           )}
         >
@@ -92,7 +92,7 @@ export default function GalleryPage() {
             key={item.id}
             onClick={() => setActiveCategory(item.id)}
             className={cn(
-              'px-3 py-1 rounded-full transition-colors',
+              'px-3 py-1 rounded-full transition-colors hover:text-foreground duration-300 cursor-pointer',
               activeCategory === item.id
                 ? 'text-foreground'
                 : 'text-foreground/30'
@@ -102,27 +102,39 @@ export default function GalleryPage() {
           </button>
         ))}
       </div>
-      <div className='columns-2 gap-4 md:columns-4'>
-        {filteredImages.map((image, idx) => (
-          <BlurFade key={image.url} delay={0.25 + idx * 0.05} inView>
-            <img
-              src={image?.url}
-              alt=''
-              className='mb-4 size-full rounded-lg object-contain cursor-pointer hover:opacity-90 transition-opacity'
-              onClick={() => handleImageClick(idx)}
-            />
-          </BlurFade>
-        ))}
-      </div>
+      {filteredImages.length === 0 ? (
+        <div className='flex flex-col items-center justify-center py-20 text-foreground/50'>
+          <p className={cn('text-md', Fira.className)}>
+            {activeCategory
+              ? 'No images found in this category.'
+              : 'No images to display yet.'}
+          </p>
+        </div>
+      ) : (
+        <div className='columns-2 gap-4 md:columns-4'>
+          {filteredImages.map((image, idx) => (
+            <BlurFade key={image.url} delay={0.25 + idx * 0.05} inView>
+              <img
+                src={image?.url}
+                alt=''
+                className='mb-4 size-full rounded-lg object-contain cursor-pointer hover:opacity-90 transition-opacity'
+                onClick={() => handleImageClick(idx)}
+              />
+            </BlurFade>
+          ))}
+        </div>
+      )}
 
-      <ImageModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        currentImageIndex={currentImageIndex}
-        images={filteredImages}
-        onNext={handleNext}
-        onPrev={handlePrev}
-      />
+      {filteredImages.length > 0 && (
+        <ImageModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          currentImageIndex={currentImageIndex}
+          images={filteredImages}
+          onNext={handleNext}
+          onPrev={handlePrev}
+        />
+      )}
     </div>
   );
 }
