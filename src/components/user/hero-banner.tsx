@@ -109,6 +109,9 @@ const HeroBanner = () => {
                       fill
                       className='object-cover'
                       sizes='100vw'
+                      draggable={false}
+                      onContextMenu={(e) => e.preventDefault()}
+                      priority
                     />
                     <div className='absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-background via-background/0 to-background md:from-transparent md:to-background pointer-events-none'></div>
                   </div>

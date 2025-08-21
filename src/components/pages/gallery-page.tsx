@@ -4,6 +4,7 @@ import { Category, getActiveCategories } from '@/api/categories';
 import { ImageWithCategory, listImagesWithCategories } from '@/api/images';
 import { cn } from '@/lib/utils';
 import { Fira_Sans_Extra_Condensed } from 'next/font/google';
+import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { BlurFade } from '../magicui/blur-fade';
 import { ImageModal } from '../ui/image-modal';
@@ -114,11 +115,17 @@ export default function GalleryPage() {
         <div className='columns-2 gap-4 md:columns-4'>
           {filteredImages.map((image, idx) => (
             <BlurFade key={image.url} delay={0.25 + idx * 0.05} inView>
-              <img
-                src={image?.url}
+              <Image
+                src={image.url}
                 alt=''
-                className='mb-4 size-full rounded-lg object-contain cursor-pointer hover:opacity-90 transition-opacity'
+                width={image.width}
+                height={image.height}
+                sizes='(max-width: 768px) 50vw, 25vw'
+                className='mb-4 w-full h-auto rounded-lg object-contain cursor-pointer hover:opacity-90 transition-opacity select-none'
+                draggable={false}
                 onClick={() => handleImageClick(idx)}
+                onContextMenu={(e) => e.preventDefault()}
+                priority
               />
             </BlurFade>
           ))}

@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { MoveRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Fira_Sans_Extra_Condensed } from 'next/font/google';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Marquee } from '../magicui/marquee';
@@ -64,24 +65,44 @@ const PeekGallery = () => {
           <div className='relative flex w-full flex-col items-center justify-center gap-4 overflow-hidden'>
             <Marquee pauseOnHover className='[--duration:90s]'>
               {firstRow.map((image) => (
-                <motion.img
+                <motion.div
                   key={image.url}
-                  src={image?.url}
-                  alt=''
                   variants={imageVariants}
-                  className='h-56 w-auto rounded-lg object-contain transition-shadow shadow-md hover:shadow-lg'
-                />
+                  className='h-56 w-auto rounded-lg transition-shadow shadow-md hover:shadow-lg'
+                >
+                  <Image
+                    src={image.url}
+                    alt=''
+                    width={image.width || 224}
+                    height={image.height || 224}
+                    sizes='(max-width: 768px) 50vw, 25vw'
+                    className='h-56 w-auto rounded-lg object-contain cursor-pointer hover:opacity-90 transition-opacity select-none'
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
+                    priority
+                  />
+                </motion.div>
               ))}
             </Marquee>
             <Marquee reverse pauseOnHover className='[--duration:90s]'>
               {secondRow.map((image) => (
-                <motion.img
+                <motion.div
                   key={image.url}
-                  src={image?.url}
-                  alt=''
                   variants={imageVariants}
-                  className='h-56 w-auto rounded-lg object-contain transition-shadow shadow-md hover:shadow-lg'
-                />
+                  className='h-56 w-auto rounded-lg transition-shadow shadow-md hover:shadow-lg'
+                >
+                  <Image
+                    src={image.url}
+                    alt=''
+                    width={image.width || 224}
+                    height={image.height || 224}
+                    sizes='(max-width: 768px) 50vw, 25vw'
+                    className='h-56 w-auto rounded-lg object-contain cursor-pointer hover:opacity-90 transition-opacity select-none'
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
+                    priority
+                  />
+                </motion.div>
               ))}
             </Marquee>
             <div className='pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background'></div>

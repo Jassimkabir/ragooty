@@ -169,31 +169,6 @@ const AboutPage = () => {
               />
               <div className='absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent' />
             </div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className='absolute -bottom-6 -right-6 bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl p-4 shadow-xl'
-            >
-              <div className='text-center'>
-                <div
-                  className={cn(
-                    Fira.className,
-                    'text-2xl font-bold text-primary'
-                  )}
-                >
-                  5+
-                </div>
-                <div
-                  className={cn(
-                    Fira.className,
-                    'text-sm text-muted-foreground'
-                  )}
-                >
-                  Years Experience
-                </div>
-              </div>
-            </motion.div>
           </motion.div>
           <motion.div
             initial='hidden'
