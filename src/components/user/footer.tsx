@@ -29,7 +29,7 @@ const footer = () => {
           priority
           className='object-cover object-center'
         />
-        <div className='absolute inset-0 bg-gradient-to-r from-background/90 to-transparent' />
+        <div className='absolute inset-0 bg-gradient-to-r from-background to-transparent' />
         <div className='absolute inset-0 bg-gradient-to-b from-background to-transparent' />
       </div>
       <div className='relative z-20 flex flex-col gap-6 md:gap-8 lg:gap-10 items-center justify-center px-4 text-center'>

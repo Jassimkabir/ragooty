@@ -92,7 +92,7 @@ const PeekGallery = () => {
           <Link href={'gallery'}>
             <motion.p
               className={cn(
-                'flex gap-2 items-center text-foreground text-lg md:text-xl',
+                'flex gap-2 items-center text-foreground text-sm md:text-base',
                 Fira.className
               )}
               whileHover={{ x: 4 }}

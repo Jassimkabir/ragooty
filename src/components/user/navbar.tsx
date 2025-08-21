@@ -124,7 +124,12 @@ const Navbar = () => {
           )}
         </AnimatePresence>
         <Link href={'/contact'} className='invisible md:visible'>
-          <div className='rounded-full bg-foreground backdrop-blur-xl p-3 text-background hidden md:block'>
+          <div
+            className={cn(
+              Fira.className,
+              'rounded-full bg-foreground backdrop-blur-xl p-3 text-background hidden md:block'
+            )}
+          >
             Contact
           </div>
         </Link>

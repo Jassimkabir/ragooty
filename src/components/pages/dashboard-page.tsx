@@ -53,7 +53,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className='container mx-auto'>
+    <div className='container mx-auto mt-24'>
       <div className='flex flex-col gap-4 py-4 px-4 md:px-0'>
         <div>
           <div className='flex justify-between gap-4'>
