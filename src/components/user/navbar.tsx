@@ -100,12 +100,9 @@ const Navbar = () => {
           <button
             onClick={() => setOpen((o) => !o)}
             aria-label='Toggle menu'
-            className='rounded-full bg-foreground/50  backdrop-blur-xl p-3'
+            className='rounded-full bg-foreground/10 backdrop-blur-xl p-3 text-foreground hover:bg-foreground/20 transition-colors cursor-pointer'
           >
-            <MenuIcon
-              size={20}
-              className={cn(open ? 'invisible' : '', 'text-background')}
-            />
+            <MenuIcon size={20} className={cn(open ? 'invisible' : '', '')} />
           </button>
         </div>
         <AnimatePresence>
@@ -127,7 +124,7 @@ const Navbar = () => {
           <div
             className={cn(
               Fira.className,
-              'rounded-full bg-foreground/50  backdrop-blur-xl p-3 text-background hidden md:block'
+              'rounded-full bg-foreground/10 backdrop-blur-xl p-3 text-foreground hover:bg-foreground/20 transition-colors'
             )}
           >
             Contact
@@ -145,19 +142,19 @@ const Navbar = () => {
           >
             <motion.button
               onClick={() => setOpen(false)}
-              className='absolute top-[26px] left-4 md:left-6 rounded-full bg-foreground/50 backdrop-blur-xl p-3'
+              className='absolute top-[26px] left-4 md:left-6 rounded-full bg-foreground/10 backdrop-blur-xl p-3 text-foreground hover:bg-foreground/20 transition-colors cursor-pointer'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { duration: 0.2 } }}
             >
-              <XIcon size={20} className='text-background' />
+              <XIcon size={20} />
             </motion.button>
             <Link
               href={'/contact'}
               onClick={() => setOpen(false)}
               className={cn(
                 Fira.className,
-                'rounded-full absolute top-6 right-4 md:right-6 bg-foreground/50 backdrop-blur-xl p-3 text-background'
+                'rounded-full absolute top-6 right-4 md:right-6 bg-foreground/10 backdrop-blur-xl p-3 text-foreground hover:bg-foreground/20 transition-colors'
               )}
             >
               Contact
