@@ -7,7 +7,6 @@ import { Cinzel_Decorative, Fira_Sans_Condensed } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import AgeVerificationReset from '@/components/ui/age-verification-reset';
 
 const Cin = Cinzel_Decorative({
   variable: '--font-sans',
@@ -216,9 +215,7 @@ const Navbar = () => {
               initial='hidden'
               animate='visible'
               exit='exit'
-            >
-              <AgeVerificationReset />
-            </motion.div>
+            ></motion.div>
           </motion.nav>
         )}
       </AnimatePresence>
